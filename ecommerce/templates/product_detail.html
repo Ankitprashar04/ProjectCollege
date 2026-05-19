@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+{{ product.name }}
+
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/product_detail.css' %}">
+
+</head>
+
+<body>
+
+
+<header>
+
+<div class="logo">
+
+Student Essentials
+
+</div>
+
+<nav>
+
+<a href="/">Home</a>
+
+<a href="">Cart</a>
+
+</nav>
+
+</header>
+
+
+
+<section class="product-container">
+
+
+<div class="product-image">
+
+<img src="{{ product.image.url }}">
+
+</div>
+
+
+
+<div class="product-info">
+
+<h1>
+
+{{ product.name }}
+
+</h1>
+
+<h2>
+
+₹{{ product.price }}
+
+</h2>
+
+
+<p>
+
+{{ product.description }}
+
+</p>
+
+
+<p>
+
+Category:
+{{ product.category }}
+
+</p>
+
+
+<div class="buttons">
+
+<a href="{% url 'add_to_cart' product.id %}"
+class="cart-btn">
+
+Add To Cart
+
+</a>
+
+<button class="buy-btn">
+
+Buy Now
+
+</button>
+
+</div>
+
+</div>
+
+
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet"
+href="{% static 'css/admin.css' %}">
+
+</head>
+
+<body>
+
+
+<div class="sidebar">
+
+<h2>
+
+Student Essentials
+
+</h2>
+
+<ul>
+
+<li>
+Dashboard
+</li>
+
+<li>
+Add Product
+</li>
+
+<li>
+Manage Products
+</li>
+
+<li>
+Orders
+</li>
+
+<li>
+Users
+</li>
+
+</ul>
+
+</div>
+
+
+
+<div class="main-content">
+
+<h1>
+
+Admin Dashboard
+
+</h1>
+
+<div class="cards">
+
+
+<div class="card">
+
+<h2>
+
+{{products.count}}
+
+</h2>
+
+<p>
+
+Total Products
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+
+150
+
+</h2>
+
+<p>
+
+Orders
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>
+
+50
+
+</h2>
+
+<p>
+
+Users
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<h2>
+
+Product List
+
+</h2>
+
+<table>
+
+<tr>
+
+<th>Name</th>
+
+<th>Price</th>
+
+<th>Category</th>
+
+</tr>
+
+{% for product in products %}
+
+<tr>
+
+<td>
+
+{{product.name}}
+
+</td>
+
+<td>
+
+₹{{product.price}}
+
+</td>
+
+<td>
+
+{{product.category}}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

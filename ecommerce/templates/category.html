@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category }} - Student Essentials</title>
+
+    <link rel="stylesheet" href="{% static 'css/category.css' %}">
+</head>
+<body>
+
+<header>
+
+    <div class="logo">
+        Student Essentials
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+        <a href="">Cart</a>
+        <a href="">Login</a>
+
+    </nav>
+
+</header>
+
+
+<section class="products-section">
+
+    <h1 class="section-title">
+
+        {{ category }} Products
+
+    </h1>
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <img src="{{ product.image.url }}" alt="">
+
+            <div class="product-content">
+
+                <h3>
+
+                    {{ product.name }}
+
+                </h3>
+
+                <p>
+
+                    {{ product.description|truncatewords:15 }}
+
+                </p>
+
+                <span class="price">
+
+                    ₹{{ product.price }}
+
+                </span>
+
+                <br>
+
+                <a href="{% url 'product_detail' product.id %}"
+                    class="cart-btn">
+
+                    View Details
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <p>
+
+        © 2026 Student Essential E-Commerce Website
+
+    </p>
+
+</footer>
+
+</body>
+</html>

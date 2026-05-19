@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Cart</title>
+
+<link rel="stylesheet"
+href="{% static 'css/cart.css' %}">
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<h1>
+
+My Cart
+
+</h1>
+
+
+{% for item in cart_items %}
+
+<div class="cart-box">
+
+<img src="{{ item.product.image.url }}">
+
+
+<div>
+
+<h2>
+
+{{ item.product.name }}
+
+</h2>
+
+<p>
+
+₹{{ item.product.price }}
+
+</p>
+
+</div>
+
+
+<div class="quantity">
+
+<a href="{% url 'decrease_quantity' item.id %}">
+
+-
+
+</a>
+
+<span>
+
+{{ item.quantity }}
+
+</span>
+
+<a href="{% url 'increase_quantity' item.id %}">
+
++
+
+</a>
+
+</div>
+
+
+<a href="{% url 'remove_cart' item.id %}"
+class="remove">
+
+Remove
+
+</a>
+
+</div>
+
+{% endfor %}
+
+
+<div class="total">
+
+<h2>
+
+Total:
+₹{{ total }}
+
+</h2>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Essentials</title>
+
+    <link rel="stylesheet"
+    href="{% static 'css/home.css' %}">
+
+</head>
+<body>
+
+
+<header>
+
+    <div class="logo">
+        Student Essentials
+    </div>
+
+
+  <nav>
+
+    <a href="{% url 'home' %}">
+        Home
+    </a>
+
+    <a href="">
+        Cart
+    </a>
+
+    {% if user.is_authenticated %}
+
+        {% if user.is_staff %}
+
+        <a href="{% url 'admin_dashboard' %}">
+            Dashboard
+        </a>
+
+        {% endif %}
+
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
+
+    {% else %}
+
+        <a href="{% url 'login' %}">
+            Login
+        </a>
+
+        <a href="{% url 'register' %}">
+            Register
+        </a>
+
+    {% endif %}
+
+</nav>
+
+</header>
+
+
+
+<section class="hero">
+
+
+<div class="hero-left">
+
+<h1>
+
+Everything Students Need In One Place
+
+</h1>
+
+<p>
+
+Buy books, notebooks, calculators,
+stationery and educational essentials
+at affordable prices.
+
+</p>
+
+<a href="#categories"
+class="hero-btn">
+
+Explore Products
+
+</a>
+
+</div>
+
+
+<div class="hero-right">
+
+<img src="{% static 'images/student.png' %}"
+alt="student">
+
+</div>
+
+</section>
+
+
+
+
+<section
+class="products-section"
+id="categories">
+
+<h2 class="section-title">
+
+Shop By Categories
+
+</h2>
+
+
+<div class="product-grid">
+
+
+<div class="product-card">
+
+<img src="{% static 'images/shopping.webp' %}">
+
+<div class="product-content">
+
+<h3>Books</h3>
+
+<p>
+
+Programming and academic books
+
+</p>
+
+<a href="/category/Books/"
+class="cart-btn">
+
+View Products
+
+</a>
+
+</div>
+
+</div>
+
+
+
+
+<div class="product-card">
+
+<img src="{% static 'images/stationary.webp' %}">
+
+<div class="product-content">
+
+<h3>
+
+Stationery
+
+</h3>
+
+<p>
+
+Pens, notebooks and study materials
+
+</p>
+
+<a href="/category/Stationery/"
+class="cart-btn">
+
+View Products
+
+</a>
+
+</div>
+
+</div>
+
+
+
+
+<div class="product-card">
+
+<img src="{% static 'images/electric.png' %}">
+
+<div class="product-content">
+
+<h3>
+
+Electronics
+
+</h3>
+
+<p>
+
+Calculators and gadgets
+
+</p>
+
+<a href="/category/Electronics/"
+class="cart-btn">
+
+View Products
+
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<footer>
+
+© 2026 Student Essential E-Commerce Website
+
+</footer>
+
+
+</body>
+</html>
