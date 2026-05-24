@@ -1,0 +1,218 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f6fa;
+}
+
+.container{
+
+    width:70%;
+    margin:40px auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 5px 20px rgba(
+    0,
+    0,
+    0,
+    .1
+    );
+}
+
+.container h1{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:#2563eb;
+}
+
+.message{
+
+    background:#d1fae5;
+
+    color:#065f46;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+    text-align:center;
+}
+
+
+/* Coupon */
+
+.coupon-box{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:30px;
+}
+
+.coupon-box input{
+
+    flex:1;
+
+    padding:15px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    outline:none;
+}
+
+.coupon-btn{
+
+    width:auto !important;
+
+    padding:15px 25px;
+
+    margin-top:0 !important;
+
+    background:#2563eb;
+}
+
+
+/* Price */
+
+.price-box{
+
+    background:#f8fafc;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    margin-bottom:30px;
+}
+
+.price-box h3{
+
+    margin-bottom:10px;
+
+    color:#555;
+}
+
+.price-box h2{
+
+    color:#22c55e;
+}
+
+.discount{
+
+    color:#ef4444;
+
+    font-weight:bold;
+}
+
+
+/* Payment */
+
+.payment-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:20px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+}
+
+.payment-box:hover{
+
+    border-color:#2563eb;
+
+    background:#eff6ff;
+}
+
+
+/* Card Inputs */
+
+#card-section input{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:15px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    outline:none;
+}
+
+
+/* QR */
+
+#qr-section{
+
+    text-align:center;
+
+    margin-top:30px;
+}
+
+.qr-image{
+
+    width:250px;
+
+    height:250px;
+
+    margin-top:15px;
+}
+
+
+/* Buttons */
+
+button{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-top:30px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#22c55e;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+button:hover{
+
+    background:#16a34a;
+}

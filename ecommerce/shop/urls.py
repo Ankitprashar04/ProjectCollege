@@ -66,4 +66,20 @@ urlpatterns = [
         views.remove_cart,
         name='remove_cart'
     ),
+    path(
+        'checkout/',
+        views.checkout,
+        name='checkout'
+    ),
+
+    path(
+        'order-success/',
+        views.order_success,
+        name='order_success'
+    ),
+    path(
+        'my-orders/',
+        views.my_orders,
+        name='my_orders'
+    ),
 ]

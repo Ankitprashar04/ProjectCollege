@@ -1,13 +1,19 @@
 from django.shortcuts import render, redirect
 from .models import Product
+from .models import Coupon
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Product, Cart
+from .models import Product, Cart, Order
+import razorpay
+from django.conf import settings
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+import qrcode
+from io import BytesIO
+from base64 import b64encode
 
 
 # Home Page
@@ -45,133 +51,167 @@ def category_products(request, category):
 
 
 # Register
+from .models import UserProfile
+
+
 def register_page(request):
 
-    if request.method == "POST":
+    if request.method=="POST":
 
-        username = request.POST.get(
-            'username'
-        )
+        username=request.POST['username']
 
-        email = request.POST.get(
-            'email'
-        )
+        email=request.POST['email']
 
-        password = request.POST.get(
-            'password'
-        )
+        password=request.POST['password']
 
-        confirm_password = request.POST.get(
-            'confirm_password'
-        )
+        role=request.POST['role']
 
 
-        if password != confirm_password:
+        user=User.objects.create_user(
 
-            messages.error(
-                request,
-                "Passwords do not match"
-            )
-
-            return redirect(
-                'register'
-            )
-
-
-        if User.objects.filter(
-            username=username
-        ).exists():
-
-            messages.error(
-                request,
-                "Username already exists"
-            )
-
-            return redirect(
-                'register'
-            )
-
-
-        if User.objects.filter(
-            email=email
-        ).exists():
-
-            messages.error(
-                request,
-                "Email already exists"
-            )
-
-            return redirect(
-                'register'
-            )
-
-
-        User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
 
 
+        UserProfile.objects.create(
+
+            user=user,
+
+            role=role,
+
+            approved=False
+        )
+
+
         messages.success(
+
             request,
-            "Registration successful"
+
+            "Registration submitted. Wait for approval."
         )
 
         return redirect(
             'login'
         )
 
+
     return render(
         request,
         'register.html'
     )
 
-
 # Login
+from django.contrib.auth import authenticate,login
+from django.contrib import messages
+from django.shortcuts import render,redirect
+
+
 def login_page(request):
 
-    if request.method == "POST":
+    if request.method=="POST":
 
-        username = request.POST.get(
-            'username'
-        )
+        username=request.POST['username']
 
-        password = request.POST.get(
-            'password'
-        )
+        password=request.POST['password']
+
+        role=request.POST['role']
 
 
-        user = authenticate(
-            request,
+        user=authenticate(
+
             username=username,
             password=password
+
         )
 
 
         if user is not None:
 
-            login(
-                request,
-                user
+            from .models import UserProfile
+
+            profile=UserProfile.objects.get(
+                user=user
             )
 
-            return redirect(
-                'home'
-            )
+
+            # Approval check
+
+            if not profile.approved:
+
+                messages.error(
+
+                    request,
+
+                    "Account pending approval"
+
+                )
+
+                return redirect(
+                    'login'
+                )
+
+
+            # Admin selected
+
+            if role=="admin":
+
+                if profile.role=="admin":
+
+                    login(
+                        request,
+                        user
+                    )
+
+                    return redirect(
+                        'admin_dashboard'
+                    )
+
+                else:
+
+                    messages.error(
+
+                        request,
+
+                        "Access denied: You are not admin"
+
+                    )
+
+                    return redirect(
+                        'login'
+                    )
+
+
+            # User selected
+
+            elif role=="user":
+
+                login(
+                    request,
+                    user
+                )
+
+                return redirect(
+                    'home'
+                )
+
 
         else:
 
             messages.error(
+
                 request,
+
                 "Invalid Username or Password"
+
             )
+
 
     return render(
         request,
         'login.html'
     )
-
 
 # Logout
 def logout_page(request):
@@ -186,26 +226,37 @@ def logout_page(request):
 
 
 # Admin Dashboard
-@login_required(
-    login_url='/login/'
-)
+from django.contrib.auth.models import User
+from .models import Product
+from .models import UserProfile
+
+
 def admin_dashboard(request):
 
-    if not request.user.is_staff:
+    products=Product.objects.all()
 
-        return HttpResponse(
-            "Access Denied"
-        )
+    users=User.objects.all()
 
-
-    products = Product.objects.all()
+    pending=UserProfile.objects.filter(
+        approved=False
+    )
 
     return render(
+
         request,
+
         'admin_dashboard.html',
+
         {
-            'products': products
+
+            'products':products,
+
+            'users':users,
+
+            'pending':pending
+
         }
+
     )
 
 def product_detail(request, id):
@@ -320,4 +371,156 @@ def remove_cart(request,id):
 
     return redirect(
         'cart'
+    )
+
+
+@login_required(login_url='/login/')
+def checkout(request):
+
+    cart_items = Cart.objects.filter(
+        user=request.user
+    )
+
+    total = sum(
+
+        item.product.price *
+        item.quantity
+
+        for item in cart_items
+
+    )
+
+    discount = 0
+    coupon = None
+
+
+    if request.method == "POST":
+
+        coupon_code = request.POST.get(
+            'coupon'
+        )
+
+        if coupon_code:
+
+            try:
+
+                coupon = Coupon.objects.get(
+
+                    code=coupon_code,
+                    active=True
+
+                )
+
+                discount = (
+
+                    total *
+                    coupon.discount
+
+                ) / 100
+
+
+                messages.success(
+
+                    request,
+
+                    "Coupon Applied Successfully"
+
+                )
+
+            except:
+
+                messages.error(
+
+                    request,
+
+                    "Invalid Coupon"
+
+                )
+
+
+    final_total = total - discount
+
+
+    upi_id = "ankitprashar88@oksbi"
+
+
+    upi_link = (
+
+        f"upi://pay?"
+
+        f"pa={upi_id}"
+
+        f"&pn=StudentEssentials"
+
+        f"&am={final_total}"
+
+        f"&cu=INR"
+
+    )
+
+
+    qr = qrcode.make(
+        upi_link
+    )
+
+    buffer = BytesIO()
+
+    qr.save(
+        buffer,
+        format="PNG"
+    )
+
+
+    qr_code = b64encode(
+
+        buffer.getvalue()
+
+    ).decode()
+
+
+
+    return render(
+
+        request,
+
+        'checkout.html',
+
+        {
+
+            'cart_items': cart_items,
+
+            'total': total,
+
+            'discount': discount,
+
+            'coupon': coupon,
+
+            'final_total': final_total,
+
+            'qr_code': qr_code
+
+        }
+
+    )
+
+def order_success(request):
+
+    return render(
+        request,
+        'order_success.html'
+    )
+
+@login_required(login_url='/login/')
+def my_orders(request):
+
+    orders = Order.objects.filter(
+        user=request.user
+    )
+
+    return render(
+        request,
+        'my_orders.html',
+        {
+            'orders': orders
+        }
     )

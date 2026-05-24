@@ -16,6 +16,7 @@ urlpatterns = [
         '',
         include('shop.urls')
     ),
+    
 
 ]
 

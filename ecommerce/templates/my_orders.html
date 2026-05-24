@@ -1,0 +1,104 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+My Orders
+
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/my_orders.css' %}">
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+</head>
+
+<body>
+
+{% include 'navbar.html' %}
+
+<div class="container">
+
+<h1>
+
+My Orders
+
+</h1>
+
+
+{% for order in orders %}
+
+<div class="order-card">
+
+<img src="{{ order.product.image.url }}">
+
+
+<div class="details">
+
+<h2>
+
+{{ order.product.name }}
+
+</h2>
+
+<p>
+
+Quantity:
+{{ order.quantity }}
+
+</p>
+
+<p>
+
+Price:
+₹{{ order.total_price }}
+
+</p>
+
+
+<p class="status">
+
+Status:
+{{ order.status }}
+
+</p>
+
+</div>
+
+</div>
+
+
+{% empty %}
+
+<div class="empty">
+
+<h2>
+
+No Orders Found
+
+</h2>
+
+<p>
+
+Start shopping and place your first order
+
+</p>
+
+</div>
+
+{% endfor %}
+
+
+</div>
+
+</body>
+</html>

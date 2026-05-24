@@ -1,10 +1,15 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 
 <head>
 
-<title>Admin Dashboard</title>
+<title>
+
+Admin Dashboard
+
+</title>
 
 <link rel="stylesheet"
 href="{% static 'css/admin.css' %}">
@@ -25,23 +30,45 @@ Student Essentials
 <ul>
 
 <li>
+<a href="">
 Dashboard
+</a>
 </li>
 
 <li>
+<a href="">
 Add Product
+</a>
 </li>
 
 <li>
+<a href="">
 Manage Products
+</a>
 </li>
 
 <li>
+<a href="">
 Orders
+</a>
 </li>
 
 <li>
+<a href="">
 Users
+</a>
+</li>
+
+<li>
+<a href="">
+Pending Requests
+</a>
+</li>
+
+<li>
+<a href="{% url 'logout' %}">
+Logout
+</a>
 </li>
 
 </ul>
@@ -54,18 +81,20 @@ Users
 
 <h1>
 
-Admin Dashboard
+Welcome
+
+{{ request.user.username }}
 
 </h1>
 
-<div class="cards">
 
+<div class="cards">
 
 <div class="card">
 
 <h2>
 
-{{products.count}}
+{{ products.count }}
 
 </h2>
 
@@ -82,7 +111,7 @@ Total Products
 
 <h2>
 
-150
+{{ orders.count }}
 
 </h2>
 
@@ -95,18 +124,34 @@ Orders
 </div>
 
 
-
 <div class="card">
 
 <h2>
 
-50
+{{ users.count }}
 
 </h2>
 
 <p>
 
 Users
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+
+{{ pending.count }}
+
+</h2>
+
+<p>
+
+Pending Approvals
 
 </p>
 
@@ -132,6 +177,8 @@ Product List
 
 <th>Category</th>
 
+<th>Action</th>
+
 </tr>
 
 {% for product in products %}
@@ -140,19 +187,37 @@ Product List
 
 <td>
 
-{{product.name}}
+{{ product.name }}
 
 </td>
 
 <td>
 
-₹{{product.price}}
+₹{{ product.price }}
 
 </td>
 
 <td>
 
-{{product.category}}
+{{ product.category }}
+
+</td>
+
+<td>
+
+<a href="#">
+
+Edit
+
+</a>
+
+|
+
+<a href="#">
+
+Delete
+
+</a>
 
 </td>
 
@@ -165,4 +230,5 @@ Product List
 </div>
 
 </body>
+
 </html>

@@ -3,99 +3,117 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+    <head>
 
-<title>Cart</title>
+        <title>Cart</title>
 
-<link rel="stylesheet"
-href="{% static 'css/cart.css' %}">
+        <link rel="stylesheet"
+        href="{% static 'css/cart.css' %}">
+        <link rel="stylesheet"
+        href="{% static 'css/navbar.css' %}">
 
-</head>
+    </head>
 
-<body>
+    <body>
+        {% include 'navbar.html' %}
 
+        <div class="container">
 
-<div class="container">
+        <h1>
 
-<h1>
+        My Cart
 
-My Cart
+        </h1>
 
-</h1>
+        {% for item in cart_items %}
 
+        <div class="cart-box">
 
-{% for item in cart_items %}
+        <img src="{{ item.product.image.url }}">
 
-<div class="cart-box">
+        <div>
 
-<img src="{{ item.product.image.url }}">
+        <h2>
 
+        {{ item.product.name }}
 
-<div>
+        </h2>
 
-<h2>
+        <p>
 
-{{ item.product.name }}
+        Price:
+        ₹{{ item.product.price }}
 
-</h2>
+        </p>
 
-<p>
-
-₹{{ item.product.price }}
-
-</p>
-
-</div>
-
-
-<div class="quantity">
-
-<a href="{% url 'decrease_quantity' item.id %}">
-
--
-
-</a>
-
-<span>
-
-{{ item.quantity }}
-
-</span>
-
-<a href="{% url 'increase_quantity' item.id %}">
-
-+
-
-</a>
-
-</div>
+        </div>
 
 
-<a href="{% url 'remove_cart' item.id %}"
-class="remove">
+        <div class="quantity">
 
-Remove
+        <a href="{% url 'decrease_quantity' item.id %}">
 
-</a>
+        -
 
-</div>
+        </a>
 
-{% endfor %}
+        <span>
+
+        {{ item.quantity }}
+
+        </span>
 
 
-<div class="total">
+        <a href="{% url 'increase_quantity' item.id %}">
 
-<h2>
+        +
 
-Total:
-₹{{ total }}
+        </a>
 
-</h2>
+        </div>
 
-</div>
 
-</div>
+        <a href="{% url 'remove_cart' item.id %}"
+        class="remove">
 
-</body>
+        Remove
+
+        </a>
+
+        </div>
+
+        {% empty %}
+
+        <h2>
+
+        Cart is Empty
+
+        </h2>
+
+        {% endfor %}
+
+
+        <div class="total">
+
+        <h2>
+
+        Total:
+        ₹{{ total }}
+
+        </h2>
+
+
+        <a href="{% url 'checkout' %}"
+        class="checkout-btn">
+
+        Proceed To Checkout
+
+        </a>
+
+        </div>
+
+        </div>
+
+    </body>
 
 </html>

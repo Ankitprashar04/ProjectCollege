@@ -1,0 +1,295 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/checkout.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/navbar.css' %}">
+
+</head>
+
+<body>
+
+{% include 'navbar.html' %}
+
+<div class="container">
+
+    <h1>
+
+        Checkout
+
+    </h1>
+
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+        <div class="message">
+
+            {{ message }}
+
+        </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- Coupon -->
+
+        <div class="coupon-box">
+
+            <input
+                type="text"
+                name="coupon"
+                placeholder="Enter Coupon Code">
+
+            <button
+                type="submit"
+                class="coupon-btn">
+
+                Apply
+
+            </button>
+
+        </div>
+
+
+
+        <!-- Price -->
+
+        <div class="price-box">
+
+            <h3>
+
+                Total Amount:
+                ₹{{ total }}
+
+            </h3>
+
+
+            {% if discount > 0 %}
+
+            <h3 class="discount">
+
+                Coupon Discount:
+                -₹{{ discount }}
+
+                ({{ coupon.discount }}% OFF)
+
+            </h3>
+
+            {% endif %}
+
+
+            <h3>
+
+                You Saved:
+                ₹{{ discount }}
+
+            </h3>
+
+
+            <h2>
+
+                Final Amount:
+                ₹{{ final_total }}
+
+            </h2>
+
+        </div>
+
+
+
+        <h2>
+
+            Select Payment Method
+
+        </h2>
+
+
+
+        <div class="payment-box">
+
+            <input
+                type="radio"
+                name="payment"
+                value="COD"
+                required>
+
+            <label>
+
+                Cash On Delivery
+
+            </label>
+
+        </div>
+
+
+
+        <div class="payment-box">
+
+            <input
+                type="radio"
+                name="payment"
+                value="QR">
+
+            <label>
+
+                UPI QR Payment
+
+            </label>
+
+        </div>
+
+
+
+        <div class="payment-box">
+
+            <input
+                type="radio"
+                name="payment"
+                value="CARD">
+
+            <label>
+
+                Card Payment
+
+            </label>
+
+        </div>
+
+
+
+        <div id="qr-section"
+             style="display:none;">
+
+            <h2>
+
+                Scan QR To Pay
+
+            </h2>
+
+            <img
+                src="data:image/png;base64,{{ qr_code }}"
+                class="qr-image">
+
+            <p>
+
+                UPI:
+                ankitprashar88@oksbi
+
+            </p>
+
+        </div>
+
+
+
+        <div id="card-section"
+             style="display:none;">
+
+            <input
+                type="text"
+                name="card_number"
+                placeholder="Card Number">
+
+            <input
+                type="text"
+                name="expiry"
+                placeholder="MM/YY">
+
+            <input
+                type="text"
+                name="cvv"
+                placeholder="CVV">
+
+        </div>
+
+
+        <button
+            type="submit">
+
+            Place Order
+
+        </button>
+
+    </form>
+
+</div>
+
+
+
+<script>
+
+const qrSection =
+document.getElementById(
+"qr-section"
+);
+
+const cardSection =
+document.getElementById(
+"card-section"
+);
+
+
+document
+.querySelectorAll(
+'input[name="payment"]'
+)
+.forEach((radio)=>{
+
+radio.addEventListener(
+
+"change",
+
+function(){
+
+qrSection.style.display =
+"none";
+
+cardSection.style.display =
+"none";
+
+
+if(this.value==="QR"){
+
+qrSection.style.display =
+"block";
+
+}
+
+
+if(this.value==="CARD"){
+
+cardSection.style.display =
+"block";
+
+}
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>
