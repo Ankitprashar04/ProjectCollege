@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +18,7 @@ content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet"
 href="{% static 'css/product_detail.css' %}">
+
 <link rel="stylesheet"
 href="{% static 'css/navbar.css' %}">
 
@@ -24,73 +26,101 @@ href="{% static 'css/navbar.css' %}">
 
 <body>
 
-    {% include 'navbar.html' %}
-
+{% include 'navbar.html' %}
 
 
 <section class="product-container">
 
+    <!-- Product Image -->
 
-<div class="product-image">
+    <div class="product-image">
 
-<img src="{{ product.image.url }}">
+        <img
+        src="{{ product.image.url }}"
+        alt="{{ product.name }}">
 
-</div>
-
-
-
-<div class="product-info">
-
-<h1>
-
-{{ product.name }}
-
-</h1>
-
-<h2>
-
-₹{{ product.price }}
-
-</h2>
+    </div>
 
 
-<p>
 
-{{ product.description }}
+    <!-- Product Details -->
 
-</p>
+    <div class="product-info">
 
+        <span class="category">
 
-<p>
+            {{ product.category }}
 
-Category:
-{{ product.category }}
-
-</p>
+        </span>
 
 
-<div class="buttons">
+        <h1>
 
-<a href="{% url 'add_to_cart' product.id %}"
-class="cart-btn">
+            {{ product.name }}
 
-Add To Cart
+        </h1>
 
-</a>
 
-<button class="buy-btn">
+        <h2>
 
-Buy Now
+            ₹{{ product.price }}
 
-</button>
+        </h2>
 
-</div>
 
-</div>
+        <p class="description">
 
+            {{ product.description }}
+
+        </p>
+
+
+        <div class="features">
+
+            <div>
+
+                Fast Delivery
+
+            </div>
+
+            <div>
+
+                Secure Payment
+
+            </div>
+
+            <div>
+
+                Best Quality
+
+            </div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <a href="{% url 'add_to_cart' product.id %}"
+               class="cart-btn">
+
+                Add To Cart
+
+            </a>
+
+
+            <a href="{% url 'checkout' %}"
+               class="buy-btn">
+
+                Buy Now
+
+            </a>
+
+        </div>
+
+    </div>
 
 </section>
 
-
 </body>
+
 </html>

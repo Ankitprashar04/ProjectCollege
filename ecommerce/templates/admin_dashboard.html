@@ -1,231 +1,314 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>
+    <meta charset="UTF-8">
 
-Admin Dashboard
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-</title>
+    <title>
 
-<link rel="stylesheet"
-href="{% static 'css/admin.css' %}">
+        Admin Dashboard
+
+    </title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/admin.css' %}">
 
 </head>
 
 <body>
 
+<!-- Sidebar -->
 
 <div class="sidebar">
 
-<h2>
+    <h2>
 
-Student Essentials
+        Student Essentials
 
-</h2>
+    </h2>
 
-<ul>
+    <ul>
 
-<li>
-<a href="">
-Dashboard
-</a>
-</li>
+        <li>
 
-<li>
-<a href="">
-Add Product
-</a>
-</li>
+            <a href="{% url 'admin_dashboard' %}">
 
-<li>
-<a href="">
-Manage Products
-</a>
-</li>
+                Dashboard
 
-<li>
-<a href="">
-Orders
-</a>
-</li>
+            </a>
 
-<li>
-<a href="">
-Users
-</a>
-</li>
+        </li>
 
-<li>
-<a href="">
-Pending Requests
-</a>
-</li>
+        <li>
 
-<li>
-<a href="{% url 'logout' %}">
-Logout
-</a>
-</li>
+            <a href="{% url 'add_product' %}">
 
-</ul>
+                Add Product
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="{% url 'manage_products' %}">
+
+                Manage Products
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="{% url 'orders' %}">
+
+                Orders
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="{% url 'users' %}">
+
+                Users
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="{% url 'pending_requests' %}">
+
+                Pending Requests
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="{% url 'logout' %}">
+
+                Logout
+
+            </a>
+
+        </li>
+
+    </ul>
 
 </div>
 
 
+
+<!-- Main Content -->
 
 <div class="main-content">
 
-<h1>
+    <h1>
 
-Welcome
+        Welcome,
 
-{{ request.user.username }}
+        {{ request.user.username }}
 
-</h1>
+    </h1>
 
 
-<div class="cards">
+    <!-- Cards -->
 
-<div class="card">
+    <div class="cards">
 
-<h2>
+        <div class="card">
 
-{{ products.count }}
+            <h2>
 
-</h2>
+                {{ products.count }}
 
-<p>
+            </h2>
 
-Total Products
+            <p>
 
-</p>
+                Total Products
 
-</div>
+            </p>
 
+        </div>
 
-<div class="card">
 
-<h2>
+        <div class="card">
 
-{{ orders.count }}
+            <h2>
 
-</h2>
+                {{ orders.count }}
 
-<p>
+            </h2>
 
-Orders
+            <p>
 
-</p>
+                Total Orders
 
-</div>
+            </p>
 
+        </div>
 
-<div class="card">
 
-<h2>
+        <div class="card">
 
-{{ users.count }}
+            <h2>
 
-</h2>
+                {{ users.count }}
 
-<p>
+            </h2>
 
-Users
+            <p>
 
-</p>
+                Total Users
 
-</div>
+            </p>
 
+        </div>
 
-<div class="card">
 
-<h2>
+        <div class="card">
 
-{{ pending.count }}
+            <h2>
 
-</h2>
+                {{ pending.count }}
 
-<p>
+            </h2>
 
-Pending Approvals
+            <p>
 
-</p>
+                Pending Requests
 
-</div>
+            </p>
 
-</div>
+        </div>
 
+    </div>
 
 
-<h2>
 
-Product List
+    <!-- Product Table -->
 
-</h2>
+    <div class="table-box">
 
-<table>
+        <h2>
 
-<tr>
+            Product List
 
-<th>Name</th>
+        </h2>
 
-<th>Price</th>
+        <table>
 
-<th>Category</th>
+            <thead>
 
-<th>Action</th>
+                <tr>
 
-</tr>
+                    <th>
 
-{% for product in products %}
+                        Name
 
-<tr>
+                    </th>
 
-<td>
+                    <th>
 
-{{ product.name }}
+                        Price
 
-</td>
+                    </th>
 
-<td>
+                    <th>
 
-₹{{ product.price }}
+                        Category
 
-</td>
+                    </th>
 
-<td>
+                    <th>
 
-{{ product.category }}
+                        Action
 
-</td>
+                    </th>
 
-<td>
+                </tr>
 
-<a href="#">
+            </thead>
 
-Edit
+            <tbody>
 
-</a>
+            {% for product in products %}
 
-|
+                <tr>
 
-<a href="#">
+                    <td>
 
-Delete
+                        {{ product.name }}
 
-</a>
+                    </td>
 
-</td>
+                    <td>
 
-</tr>
+                        ₹{{ product.price }}
 
-{% endfor %}
+                    </td>
 
-</table>
+                    <td>
+
+                        {{ product.category }}
+
+                    </td>
+
+                    <td>
+
+                        <a
+                        href="{% url 'edit_product' product.id %}"
+                        class="edit-btn">
+
+                            Edit
+
+                        </a>
+
+
+                        <a
+                        href="{% url 'delete_product' product.id %}"
+                        class="delete-btn">
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="4">
+
+                        No Products Available
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 

@@ -5,18 +5,22 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <title>Checkout</title>
+<title>
 
-    <link rel="stylesheet"
-          href="{% static 'css/checkout.css' %}">
+Checkout
 
-    <link rel="stylesheet"
-          href="{% static 'css/navbar.css' %}">
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/checkout.css' %}">
+
+<link rel="stylesheet"
+href="{% static 'css/navbar.css' %}">
 
 </head>
 
@@ -26,212 +30,222 @@
 
 <div class="container">
 
-    <h1>
+<h1>
 
-        Checkout
+Checkout
 
-    </h1>
+</h1>
 
 
-    {% if messages %}
 
-        {% for message in messages %}
+<!-- Messages -->
 
-        <div class="message">
+{% if messages %}
 
-            {{ message }}
+{% for message in messages %}
 
-        </div>
+<div class="message">
 
-        {% endfor %}
+{{ message }}
 
-    {% endif %}
+</div>
 
+{% endfor %}
 
-    <form method="POST">
+{% endif %}
 
-        {% csrf_token %}
 
 
-        <!-- Coupon -->
+<!-- Coupon Form -->
 
-        <div class="coupon-box">
+<form method="POST">
 
-            <input
-                type="text"
-                name="coupon"
-                placeholder="Enter Coupon Code">
+{% csrf_token %}
 
-            <button
-                type="submit"
-                class="coupon-btn">
+<div class="coupon-box">
 
-                Apply
+<input
+type="text"
+name="coupon"
+placeholder="Enter Coupon Code">
 
-            </button>
 
-        </div>
+<button
+type="submit"
+name="apply_coupon"
+class="coupon-btn">
 
+Apply
 
+</button>
 
-        <!-- Price -->
+</div>
 
-        <div class="price-box">
+</form>
 
-            <h3>
 
-                Total Amount:
-                ₹{{ total }}
 
-            </h3>
+<!-- Price Box -->
 
+<div class="price-box">
 
-            {% if discount > 0 %}
+<h3>
 
-            <h3 class="discount">
+Total Amount:
+₹{{ total }}
 
-                Coupon Discount:
-                -₹{{ discount }}
+</h3>
 
-                ({{ coupon.discount }}% OFF)
 
-            </h3>
+{% if discount > 0 %}
 
-            {% endif %}
+<h3 class="discount">
 
+Discount:
+-₹{{ discount }}
 
-            <h3>
+</h3>
 
-                You Saved:
-                ₹{{ discount }}
+{% endif %}
 
-            </h3>
 
+<h2>
 
-            <h2>
+Final Amount:
+₹{{ final_total }}
 
-                Final Amount:
-                ₹{{ final_total }}
+</h2>
 
-            </h2>
+</div>
 
-        </div>
 
 
+<!-- Payment Form -->
 
-        <h2>
+<form method="POST">
 
-            Select Payment Method
+{% csrf_token %}
 
-        </h2>
+<h2>
 
+Select Payment Method
 
+</h2>
 
-        <div class="payment-box">
 
-            <input
-                type="radio"
-                name="payment"
-                value="COD"
-                required>
 
-            <label>
+<div class="payment-box">
 
-                Cash On Delivery
+<input
+type="radio"
+name="payment"
+value="COD"
+required>
 
-            </label>
+<label>
 
-        </div>
+Cash On Delivery
 
+</label>
 
+</div>
 
-        <div class="payment-box">
 
-            <input
-                type="radio"
-                name="payment"
-                value="QR">
 
-            <label>
+<div class="payment-box">
 
-                UPI QR Payment
+<input
+type="radio"
+name="payment"
+value="QR">
 
-            </label>
+<label>
 
-        </div>
+UPI QR Payment
 
+</label>
 
+</div>
 
-        <div class="payment-box">
 
-            <input
-                type="radio"
-                name="payment"
-                value="CARD">
 
-            <label>
+<div class="payment-box">
 
-                Card Payment
+<input
+type="radio"
+name="payment"
+value="CARD">
 
-            </label>
+<label>
 
-        </div>
+Card Payment
 
+</label>
 
+</div>
 
-        <div id="qr-section"
-             style="display:none;">
 
-            <h2>
 
-                Scan QR To Pay
+<!-- QR Section -->
 
-            </h2>
+<div id="qr-section"
+style="display:none;">
 
-            <img
-                src="data:image/png;base64,{{ qr_code }}"
-                class="qr-image">
+<h2>
 
-            <p>
+Scan QR To Pay
 
-                UPI:
-                ankitprashar88@oksbi
+</h2>
 
-            </p>
+<img
+src="data:image/png;base64,{{ qr_code }}"
+class="qr-image">
 
-        </div>
 
+<p>
 
+UPI:
+ankitprashar88@oksbi
 
-        <div id="card-section"
-             style="display:none;">
+</p>
 
-            <input
-                type="text"
-                name="card_number"
-                placeholder="Card Number">
+</div>
 
-            <input
-                type="text"
-                name="expiry"
-                placeholder="MM/YY">
 
-            <input
-                type="text"
-                name="cvv"
-                placeholder="CVV">
 
-        </div>
+<!-- Card Section -->
 
+<div id="card-section"
+style="display:none;">
 
-        <button
-            type="submit">
+<input
+type="text"
+name="card_number"
+placeholder="Card Number">
 
-            Place Order
+<input
+type="text"
+name="expiry"
+placeholder="MM/YY">
 
-        </button>
+<input
+type="text"
+name="cvv"
+placeholder="CVV">
 
-    </form>
+</div>
+
+
+
+<button
+type="submit"
+name="place_order">
+
+Place Order
+
+</button>
+
+</form>
 
 </div>
 
@@ -240,21 +254,34 @@
 <script>
 
 const qrSection =
+
 document.getElementById(
+
 "qr-section"
+
 );
 
+
 const cardSection =
+
 document.getElementById(
+
 "card-section"
+
 );
+
 
 
 document
 .querySelectorAll(
+
 'input[name="payment"]'
+
 )
-.forEach((radio)=>{
+
+.forEach(
+
+(radio)=>{
 
 radio.addEventListener(
 
@@ -262,31 +289,47 @@ radio.addEventListener(
 
 function(){
 
-qrSection.style.display =
+qrSection.style.display=
+
 "none";
 
-cardSection.style.display =
+cardSection.style.display=
+
 "none";
 
 
-if(this.value==="QR"){
+if(
 
-qrSection.style.display =
+this.value==="QR"
+
+){
+
+qrSection.style.display=
+
 "block";
 
 }
 
 
-if(this.value==="CARD"){
+if(
 
-cardSection.style.display =
+this.value==="CARD"
+
+){
+
+cardSection.style.display=
+
 "block";
 
 }
 
-});
+}
 
-});
+);
+
+}
+
+);
 
 </script>
 

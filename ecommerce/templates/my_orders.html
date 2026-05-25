@@ -1,24 +1,16 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-
-My Orders
-
-</title>
+<title>My Orders</title>
 
 <link rel="stylesheet"
 href="{% static 'css/my_orders.css' %}">
-<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+<link rel="stylesheet"
+href="{% static 'css/navbar.css' %}">
 
 </head>
 
@@ -28,21 +20,15 @@ href="{% static 'css/my_orders.css' %}">
 
 <div class="container">
 
-<h1>
-
-My Orders
-
-</h1>
-
+<h1>My Orders</h1>
 
 {% for order in orders %}
 
-<div class="order-card">
+<div class="order-box">
 
 <img src="{{ order.product.image.url }}">
 
-
-<div class="details">
+<div class="order-info">
 
 <h2>
 
@@ -64,11 +50,21 @@ Price:
 
 </p>
 
-
-<p class="status">
+<p>
 
 Status:
+<span class="{{ order.status|lower }}">
+
 {{ order.status }}
+
+</span>
+
+</p>
+
+<p>
+
+Date:
+{{ order.created_at }}
 
 </p>
 
@@ -76,10 +72,7 @@ Status:
 
 </div>
 
-
 {% empty %}
-
-<div class="empty">
 
 <h2>
 
@@ -87,16 +80,7 @@ No Orders Found
 
 </h2>
 
-<p>
-
-Start shopping and place your first order
-
-</p>
-
-</div>
-
 {% endfor %}
-
 
 </div>
 

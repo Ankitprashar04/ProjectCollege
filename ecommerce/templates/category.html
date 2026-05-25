@@ -2,95 +2,128 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ category }} - Student Essentials</title>
 
-    <link rel="stylesheet" href="{% static 'css/category.css' %}">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        {{ category }} - Student Essentials
+
+    </title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/category.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/navbar.css' %}">
+
 </head>
+
 <body>
 
-<header>
-
-    <div class="logo">
-        Student Essentials
-    </div>
-
-    <nav>
-
-        <a href="/">Home</a>
-        <a href="">Cart</a>
-        <a href="">Login</a>
-
-    </nav>
-
-</header>
+{% include 'navbar.html' %}
 
 
-<section class="products-section">
+<!-- Hero -->
 
-    <h1 class="section-title">
+<section class="category-hero">
+
+    <h1>
 
         {{ category }} Products
 
     </h1>
 
-    <div class="product-grid">
+    <p>
 
-        {% for product in products %}
+        Find the best products for your studies
 
-        <div class="product-card">
-
-            <img src="{{ product.image.url }}" alt="">
-
-            <div class="product-content">
-
-                <h3>
-
-                    {{ product.name }}
-
-                </h3>
-
-                <p>
-
-                    {{ product.description|truncatewords:15 }}
-
-                </p>
-
-                <span class="price">
-
-                    ₹{{ product.price }}
-
-                </span>
-
-                <br>
-
-                <a href="{% url 'product_detail' product.id %}"
-                    class="cart-btn">
-
-                    View Details
-
-                </a>
-
-            </div>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
+    </p>
 
 </section>
 
 
+
+<!-- Products -->
+
+<section class="products-section">
+
+<div class="product-grid">
+
+{% for product in products %}
+
+<div class="product-card">
+
+    <div class="image-box">
+
+        <img src="{{ product.image.url }}"
+             alt="{{ product.name }}">
+
+    </div>
+
+
+    <div class="product-content">
+
+        <h3>
+
+            {{ product.name }}
+
+        </h3>
+
+
+        <p>
+
+            {{ product.description|truncatewords:15 }}
+
+        </p>
+
+
+        <div class="bottom">
+
+            <span class="price">
+
+                ₹{{ product.price }}
+
+            </span>
+
+
+            <a href="{% url 'product_detail' product.id %}"
+               class="view-btn">
+
+                View Details
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<h2 class="empty">
+
+    No Products Found
+
+</h2>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+
+
 <footer>
 
-    <p>
-
-        © 2026 Student Essential E-Commerce Website
-
-    </p>
+© 2026 Student Essentials
 
 </footer>
 

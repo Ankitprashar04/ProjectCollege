@@ -1,171 +1,203 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Student Essentials</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        Student Essentials
+
+    </title>
 
     <link rel="stylesheet"
-    href="{% static 'css/home.css' %}">
+          href="{% static 'css/home.css' %}">
+
     <link rel="stylesheet"
-    href="{% static 'css/navbar.css' %}">
+          href="{% static 'css/navbar.css' %}">
 
 </head>
-<body>
 
+<body>
 
 {% include 'navbar.html' %}
 
 
+<!-- Background Animation -->
+
+<div class="bg-animation">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+</div>
+
+
+
+<!-- Hero Section -->
 
 <section class="hero">
 
+    <div class="hero-left">
 
-<div class="hero-left">
+        <span class="tag">
 
-<h1>
+            Student Marketplace
 
-Everything Students Need In One Place
+        </span>
 
-</h1>
+        <h1>
 
-<p>
+            Everything Students Need In One Place
 
-Buy books, notebooks, calculators,
-stationery and educational essentials
-at affordable prices.
+        </h1>
 
-</p>
+        <p>
 
-<a href="#categories"
-class="hero-btn">
+            Buy books, notebooks, calculators,
+            stationery and educational essentials
+            at affordable prices.
 
-Explore Products
+        </p>
 
-</a>
+        <a href="#categories"
+           class="hero-btn">
 
-</div>
+            Explore Products
+
+        </a>
+
+    </div>
 
 
-<div class="hero-right">
+    <div class="hero-right">
 
-<img src="{% static 'images/student.png' %}"
-alt="student">
+        <img src="{% static 'images/student.png' %}"
+             alt="student">
 
-</div>
+    </div>
 
 </section>
 
 
 
+<!-- Categories -->
 
 <section
 class="products-section"
 id="categories">
 
-<h2 class="section-title">
+    <h2 class="section-title">
 
-Shop By Categories
+        Shop By Categories
 
-</h2>
-
-
-<div class="product-grid">
+    </h2>
 
 
-<div class="product-card">
-
-<img src="{% static 'images/shopping.webp' %}">
-
-<div class="product-content">
-
-<h3>Books</h3>
-
-<p>
-
-Programming and academic books
-
-</p>
-
-<a href="/category/Books/"
-class="cart-btn">
-
-View Products
-
-</a>
-
-</div>
-
-</div>
+    <div class="product-grid">
 
 
+        <div class="product-card">
 
+            <img src="{% static 'images/shopping.webp' %}">
 
-<div class="product-card">
+            <div class="product-content">
 
-<img src="{% static 'images/stationary.webp' %}">
+                <h3>
 
-<div class="product-content">
+                    Books
 
-<h3>
+                </h3>
 
-Stationery
+                <p>
 
-</h3>
+                    Programming and academic books
 
-<p>
+                </p>
 
-Pens, notebooks and study materials
+                <a href="/category/Books/"
+                   class="cart-btn">
 
-</p>
+                    View Products
 
-<a href="/category/Stationery/"
-class="cart-btn">
+                </a>
 
-View Products
+            </div>
 
-</a>
-
-</div>
-
-</div>
+        </div>
 
 
 
+        <div class="product-card">
 
-<div class="product-card">
+            <img src="{% static 'images/stationary.webp' %}">
 
-<img src="{% static 'images/electric.png' %}">
+            <div class="product-content">
 
-<div class="product-content">
+                <h3>
 
-<h3>
+                    Stationery
 
-Electronics
+                </h3>
 
-</h3>
+                <p>
 
-<p>
+                    Pens, notebooks and study materials
 
-Calculators and gadgets
+                </p>
 
-</p>
+                <a href="/category/Stationery/"
+                   class="cart-btn">
 
-<a href="/category/Electronics/"
-class="cart-btn">
+                    View Products
 
-View Products
+                </a>
 
-</a>
+            </div>
 
-</div>
-
-</div>
+        </div>
 
 
-</div>
+
+        <div class="product-card">
+
+            <img src="{% static 'images/electric.png' %}">
+
+            <div class="product-content">
+
+                <h3>
+
+                    Electronics
+
+                </h3>
+
+                <p>
+
+                    Calculators and gadgets
+
+                </p>
+
+                <a href="/category/Electronics/"
+                   class="cart-btn">
+
+                    View Products
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
 
 </section>
 
@@ -173,10 +205,10 @@ View Products
 
 <footer>
 
-© 2026 Student Essential E-Commerce Website
+    © 2026 Student Essentials
 
 </footer>
 
-
 </body>
+
 </html>

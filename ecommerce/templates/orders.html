@@ -1,0 +1,205 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Orders Management
+
+</title>
+
+<link rel="stylesheet"
+href="{% static 'css/orders.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+
+Orders Management
+
+</h1>
+
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+
+User
+
+</th>
+
+<th>
+
+Product
+
+</th>
+
+<th>
+
+Amount
+
+</th>
+
+<th>
+
+Payment
+
+</th>
+
+<th>
+
+Status
+
+</th>
+
+<th>
+
+Action
+
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+{% for order in orders %}
+
+<tr>
+
+<td>
+
+{{ order.user.username }}
+
+</td>
+
+<td>
+
+{{ order.product.name }}
+
+</td>
+
+<td>
+
+₹{{ order.total_price }}
+
+</td>
+
+<td>
+
+{{ order.payment_method }}
+
+</td>
+
+<td>
+
+<span class="{{ order.status|lower }}">
+
+{{ order.status }}
+
+</span>
+
+</td>
+
+<td>
+
+<form
+method="POST"
+action="{% url 'update_order_status' order.id %}">
+
+{% csrf_token %}
+
+<select name="status">
+
+<option value="Pending">
+
+Pending
+
+</option>
+
+<option value="Processing">
+
+Processing
+
+</option>
+
+<option value="Shipped">
+
+Shipped
+
+</option>
+
+<option value="Delivered">
+
+Delivered
+
+</option>
+
+<option value="Cancelled">
+
+Cancelled
+
+</option>
+
+</select>
+
+
+<button
+type="submit"
+class="update-btn">
+
+Update
+
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="6">
+
+No Orders Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

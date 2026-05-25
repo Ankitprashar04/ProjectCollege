@@ -1,35 +1,62 @@
-body{
+*{
 
 margin:0;
+padding:0;
+
+box-sizing:border-box;
 
 font-family:Arial,sans-serif;
 
-background:#f5f7fb;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#020617,
+#0f172a,
+#111827
+);
+
+color:white;
+
+min-height:100vh;
 
 }
 
+
+
+/* Container */
 
 .container{
 
-width:80%;
+width:90%;
 
-margin:50px auto;
+margin:auto;
+
+padding:40px 0;
 
 }
-
 
 .container h1{
 
+text-align:center;
+
+font-size:45px;
+
 margin-bottom:40px;
 
-font-size:40px;
-
-color:#111827;
+text-shadow:
+0 0 20px #3b82f6;
 
 }
 
 
-.order-card{
+
+/* Order Box */
+
+.order-box{
 
 display:flex;
 
@@ -37,96 +64,163 @@ align-items:center;
 
 gap:30px;
 
-background:white;
-
 padding:25px;
 
 margin-bottom:25px;
 
-border-radius:20px;
+border-radius:25px;
 
-box-shadow:
-0 5px 15px rgba(0,0,0,.1);
+background:
+rgba(
+255,
+255,
+255,
+0.05
+);
+
+backdrop-filter:blur(20px);
+
+border:
+1px solid rgba(
+255,
+255,
+255,
+0.1
+);
 
 transition:.4s;
-}
-
-
-.order-card:hover{
-
-transform:translateY(-5px);
 
 }
 
+.order-box:hover{
 
-.order-card img{
+transform:
+translateY(-8px);
 
-width:150px;
+box-shadow:
+0 0 30px rgba(
+59,
+130,
+246,
+0.6
+);
 
-height:150px;
+}
+
+
+
+/* Image */
+
+.order-box img{
+
+width:140px;
+
+height:140px;
 
 object-fit:cover;
 
-border-radius:15px;
+border-radius:20px;
 
 }
 
 
-.details{
+
+/* Order Info */
+
+.order-info{
 
 flex:1;
 
 }
 
-
-.details h2{
-
-margin-bottom:15px;
+.order-info h2{
 
 font-size:28px;
 
-}
-
-
-.details p{
-
-font-size:18px;
-
-color:#555;
-
-margin:10px 0;
+margin-bottom:15px;
 
 }
 
+.order-info p{
 
-.status{
+margin-bottom:10px;
 
-display:inline-block;
+font-size:16px;
 
-padding:10px 20px;
+color:#cbd5e1;
 
-background:#dbeafe;
+}
 
-color:#2563eb;
 
-border-radius:30px;
+
+/* Status */
+
+.pending{
+
+color:#f59e0b;
+
+font-weight:bold;
+
+}
+
+.processing{
+
+color:#3b82f6;
+
+font-weight:bold;
+
+}
+
+.shipped{
+
+color:#a855f7;
+
+font-weight:bold;
+
+}
+
+.delivered{
+
+color:#22c55e;
 
 font-weight:bold;
 
 }
 
 
-.empty{
 
-background:white;
+/* Empty */
 
-padding:50px;
+.container h2{
 
 text-align:center;
 
-border-radius:20px;
+margin-top:50px;
 
-box-shadow:
-0 5px 15px rgba(0,0,0,.1);
+color:#cbd5e1;
+
+}
+
+
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.order-box{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.order-box img{
+
+width:200px;
+
+height:200px;
+
+}
 
 }

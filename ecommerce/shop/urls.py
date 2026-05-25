@@ -34,21 +34,25 @@ urlpatterns = [
         views.category_products,
         name='category_products'
     ),
+
     path(
         'product/<int:id>/',
         views.product_detail,
         name='product_detail'
     ),
+
     path(
         'add-to-cart/<int:id>/',
         views.add_to_cart,
         name='add_to_cart'
     ),
+
     path(
         'cart/',
         views.cart_page,
         name='cart'
     ),
+
     path(
         'increase/<int:id>/',
         views.increase_quantity,
@@ -66,6 +70,7 @@ urlpatterns = [
         views.remove_cart,
         name='remove_cart'
     ),
+
     path(
         'checkout/',
         views.checkout,
@@ -77,9 +82,74 @@ urlpatterns = [
         views.order_success,
         name='order_success'
     ),
+
     path(
         'my-orders/',
         views.my_orders,
         name='my_orders'
     ),
+
+    path(
+        'add-product/',
+        views.add_product,
+        name='add_product'
+    ),
+
+    path(
+        'manage-products/',
+        views.manage_products,
+        name='manage_products'
+    ),
+
+    path(
+        'orders/',
+        views.orders_page,
+        name='orders'
+    ),
+
+    path(
+        'users/',
+        views.users_page,
+        name='users'
+    ),
+
+    path(
+        'pending-requests/',
+        views.pending_requests,
+        name='pending_requests'
+    ),
+
+    path(
+        'update-order/<int:order_id>/',
+        views.update_order_status,
+        name='update_order_status'
+    ),
+
+    path(
+        'approve-user/<int:user_id>/',
+        views.approve_user,
+        name='approve_user'
+    ),
+    path(
+        'delete-user/<int:user_id>/',
+        views.delete_user,
+        name='delete_user'
+    ),
+    path(
+        'edit-product/<int:product_id>/',
+        views.edit_product,
+        name='edit_product'
+    ),
+
+    path(
+        'delete-product/<int:product_id>/',
+        views.delete_product,
+        name='delete_product'
+    ),
+    path(
+        'product/<int:id>/',
+        views.product_detail,
+        name='product_detail'
+    )
+
 ]

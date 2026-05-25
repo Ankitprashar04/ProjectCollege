@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,16 +19,21 @@ Order Success
 <link rel="stylesheet"
 href="{% static 'css/order_success.css' %}">
 
+<link rel="stylesheet"
+href="{% static 'css/navbar.css' %}">
+
 </head>
 
 <body>
 
+{% include 'navbar.html' %}
 
-<div class="success-container">
+
+<div class="container">
 
 <div class="success-box">
 
-<div class="checkmark">
+<div class="success-icon">
 
 ✓
 
@@ -41,7 +47,7 @@ Order Placed Successfully!
 </h1>
 
 
-<p>
+<p class="subtitle">
 
 Thank you for shopping with
 Student Essentials 🎓
@@ -51,24 +57,47 @@ Student Essentials 🎓
 
 <p class="message">
 
-Your educational essentials order has
-been received and is now being processed.
+Your order has been received and
+is now being processed.
 
 </p>
 
 
-<div class="order-info">
+
+<div class="info-box">
+
+<div class="info-card">
+
+
+
+<h3>
+
+Estimated Delivery
+
+</h3>
 
 <p>
 
- Estimated Delivery:
 3–5 Days
 
 </p>
 
+</div>
+
+
+
+<div class="info-card">
+
+
+
+<h3>
+
+Payment Status
+
+</h3>
+
 <p>
 
- Payment Status:
 Confirmed
 
 </p>
@@ -76,9 +105,32 @@ Confirmed
 </div>
 
 
+
+<div class="info-card">
+
+
+
+<h3>
+
+Order Status
+
+</h3>
+
+<p>
+
+Processing
+
+</p>
+
+</div>
+
+</div>
+
+
+
 <div class="buttons">
 
-<a href="/"
+<a href="{% url 'home' %}"
 class="home-btn">
 
 Continue Shopping
@@ -86,8 +138,8 @@ Continue Shopping
 </a>
 
 
-<a href=""
-class="order-btn">
+<a href="{% url 'my_orders' %}"
+class="orders-btn">
 
 My Orders
 
@@ -99,6 +151,6 @@ My Orders
 
 </div>
 
-
 </body>
+
 </html>
