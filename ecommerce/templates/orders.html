@@ -1,205 +1,91 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta charset="UTF-8">
+    <title>Orders Management</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/orders.css' %}" />
+  </head>
 
-<title>
+  <body>
+    <div class="container">
+      <h1>Orders Management</h1>
 
-Orders Management
+      <div class="table-box">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
 
-</title>
+              <th>Product</th>
 
-<link rel="stylesheet"
-href="{% static 'css/orders.css' %}">
+              <th>Amount</th>
 
-</head>
+              <th>Payment</th>
 
-<body>
+              <th>Status</th>
 
-<div class="container">
+              <th>Action</th>
+            </tr>
+          </thead>
 
-<h1>
+          <tbody>
+            {% for order in orders %}
 
-Orders Management
+            <tr>
+              <td>{{ order.user.username }}</td>
 
-</h1>
+              <td>{{ order.product.name }}</td>
 
+              <td>₹{{ order.total_price }}</td>
 
-<div class="table-box">
+              <td>{{ order.payment_method }}</td>
 
-<table>
+              <td>
+                <span class="{{ order.status|lower }}">
+                  {{ order.status }}
+                </span>
+              </td>
 
-<thead>
+              <td>
+                <form
+                  method="POST"
+                  action="{% url 'update_order_status' order.id %}"
+                >
+                  {% csrf_token %}
 
-<tr>
+                  <select name="status">
+                    <option value="Pending">Pending</option>
 
-<th>
+                    <option value="Processing">Processing</option>
 
-User
+                    <option value="Shipped">Shipped</option>
 
-</th>
+                    <option value="Delivered">Delivered</option>
 
-<th>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
 
-Product
+                  <button type="submit" class="update-btn">Update</button>
+                </form>
+              </td>
+            </tr>
 
-</th>
+            {% empty %}
 
-<th>
+            <tr>
+              <td colspan="6">No Orders Found</td>
+            </tr>
 
-Amount
-
-</th>
-
-<th>
-
-Payment
-
-</th>
-
-<th>
-
-Status
-
-</th>
-
-<th>
-
-Action
-
-</th>
-
-</tr>
-
-</thead>
-
-
-<tbody>
-
-{% for order in orders %}
-
-<tr>
-
-<td>
-
-{{ order.user.username }}
-
-</td>
-
-<td>
-
-{{ order.product.name }}
-
-</td>
-
-<td>
-
-₹{{ order.total_price }}
-
-</td>
-
-<td>
-
-{{ order.payment_method }}
-
-</td>
-
-<td>
-
-<span class="{{ order.status|lower }}">
-
-{{ order.status }}
-
-</span>
-
-</td>
-
-<td>
-
-<form
-method="POST"
-action="{% url 'update_order_status' order.id %}">
-
-{% csrf_token %}
-
-<select name="status">
-
-<option value="Pending">
-
-Pending
-
-</option>
-
-<option value="Processing">
-
-Processing
-
-</option>
-
-<option value="Shipped">
-
-Shipped
-
-</option>
-
-<option value="Delivered">
-
-Delivered
-
-</option>
-
-<option value="Cancelled">
-
-Cancelled
-
-</option>
-
-</select>
-
-
-<button
-type="submit"
-class="update-btn">
-
-Update
-
-</button>
-
-</form>
-
-</td>
-
-</tr>
-
-{% empty %}
-
-<tr>
-
-<td colspan="6">
-
-No Orders Found
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</body>
-
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,155 +1,75 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta charset="UTF-8">
+    <title>Manage Products</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/manage_products.css' %}" />
+  </head>
 
-<title>
+  <body>
+    <div class="container">
+      <h1>Manage Products</h1>
 
-Manage Products
+      <div class="table-box">
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
 
-</title>
+              <th>Name</th>
 
-<link rel="stylesheet"
-href="{% static 'css/manage_products.css' %}">
+              <th>Price</th>
 
-</head>
+              <th>Category</th>
 
-<body>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-<div class="container">
+          <tbody>
+            {% for product in products %}
 
-<h1>
+            <tr>
+              <td>
+                <img src="{{ product.image.url }}" class="product-image" />
+              </td>
 
-Manage Products
+              <td>{{ product.name }}</td>
 
-</h1>
+              <td>₹{{ product.price }}</td>
 
+              <td>{{ product.category }}</td>
 
-<div class="table-box">
+              <td>
+                <a href="{% url 'edit_product' product.id %}" class="edit-btn">
+                  Edit
+                </a>
 
-<table>
+                <a
+                  href="{% url 'delete_product' product.id %}"
+                  class="delete-btn"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
 
-<thead>
+            {% empty %}
 
-<tr>
+            <tr>
+              <td colspan="5">No Products Found</td>
+            </tr>
 
-<th>
-
-Image
-
-</th>
-
-<th>
-
-Name
-
-</th>
-
-<th>
-
-Price
-
-</th>
-
-<th>
-
-Category
-
-</th>
-
-<th>
-
-Action
-
-</th>
-
-</tr>
-
-</thead>
-
-
-<tbody>
-
-{% for product in products %}
-
-<tr>
-
-<td>
-
-<img
-src="{{ product.image.url }}"
-class="product-image">
-
-</td>
-
-<td>
-
-{{ product.name }}
-
-</td>
-
-<td>
-
-₹{{ product.price }}
-
-</td>
-
-<td>
-
-{{ product.category }}
-
-</td>
-
-<td>
-
-<a href="{% url 'edit_product' product.id %}"
-class="edit-btn">
-
-Edit
-
-</a>
-
-
-<a href="{% url 'delete_product' product.id %}"
-class="delete-btn">
-
-Delete
-
-</a>
-
-</td>
-
-</tr>
-
-{% empty %}
-
-<tr>
-
-<td colspan="5">
-
-No Products Found
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</body>
-
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>

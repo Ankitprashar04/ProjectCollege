@@ -1,0 +1,84 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Our Team</title>
+
+    <link rel="stylesheet" href="{% static 'css/team.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+  </head>
+
+  <body>
+    {% include 'navbar.html' %}
+
+    <div class="background">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <section class="team-container">
+      <h1>Meet Our Team </h1>
+
+      <p class="subtitle">The people behind Student Essentials</p>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="{% static 'images/profile1.jpg' %}" />
+
+          <h2>Ankit Prashar</h2>
+
+          <p class="role">Full Stack Developer</p>
+
+          <p>Developed the entire application from frontend to backend.</p>
+        </div>
+
+        <div class="team-card">
+          <img src="{% static 'images/profile2.jpeg' %}" />
+
+          <h2>Ritu Rani</h2>
+
+          <p class="role">frontend Developer</p>
+
+          <p>Responsible for the visual design and user interface of the platform.</p>
+        </div>
+
+        <div class="team-card">
+          <img src="{% static 'images/profile3.jpeg' %}" />
+
+          <h2>Anjali Kumari</h2>
+
+          <p class="role">Testing & Documentation</p>
+
+          <p>Responsible for creating and maintaining project documentation.</p>
+        </div>
+
+        <div class="team-card">
+          <img src="{% static 'images/profile4.jpeg' %}" />
+
+          <h2>Bhavna Chandan</h2>
+
+          <p class="role">Testing & Documentation</p>
+
+          <p>Handled testing and project documentation.</p>
+        </div>
+      </div>
+
+      <div class="project-box">
+        <h2>About Project</h2>
+
+        <p>
+          Student Essentials is an E-Commerce platform developed to help
+          students buy educational products easily in one place.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>

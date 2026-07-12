@@ -1,279 +1,181 @@
-*{
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
-margin:0;
-padding:0;
-box-sizing:border-box;
-
-font-family:Arial,sans-serif;
-
+  font-family: Arial, sans-serif;
 }
 
-body{
+body {
+  background: linear-gradient(135deg, #020617, #0f172a, #111827);
 
-background:
-linear-gradient(
-135deg,
-#020617,
-#0f172a,
-#111827
-);
+  color: white;
 
-color:white;
-
-overflow-x:hidden;
-
+  overflow-x: hidden;
 }
-
 
 /* Hero */
 
-.category-hero{
+.category-hero {
+  padding: 80px 10%;
 
-padding:80px 10%;
-
-text-align:center;
-
+  text-align: center;
 }
 
-.category-hero h1{
+.category-hero h1 {
+  font-size: 55px;
 
-font-size:55px;
+  margin-bottom: 20px;
 
-margin-bottom:20px;
-
-text-shadow:
-0 0 20px #3b82f6;
-
+  text-shadow: 0 0 20px #3b82f6;
 }
 
-.category-hero p{
+.category-hero p {
+  font-size: 18px;
 
-font-size:18px;
-
-color:#cbd5e1;
-
+  color: #cbd5e1;
 }
-
-
 
 /* Products */
 
-.products-section{
+.products-section {
+  width: 90%;
 
-width:90%;
+  margin: auto;
 
-margin:auto;
-
-padding-bottom:80px;
-
+  padding-bottom: 80px;
 }
 
+.product-grid {
+  display: grid;
 
-.product-grid{
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
-display:grid;
-
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(
-300px,
-1fr
-)
-);
-
-gap:35px;
-
+  gap: 35px;
 }
-
 
 /* Card */
 
-.product-card{
+.product-card {
+  background: rgba(255, 255, 255, 0.05);
 
-background:
-rgba(
-255,
-255,
-255,
-0.05
-);
+  backdrop-filter: blur(20px);
 
-backdrop-filter:blur(20px);
+  border-radius: 25px;
 
-border-radius:25px;
+  overflow: hidden;
 
-overflow:hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
-border:
-1px solid rgba(
-255,
-255,
-255,
-0.1
-);
-
-transition:.5s;
-
+  transition: 0.5s;
 }
 
-.product-card:hover{
+.product-card:hover {
+  transform: translateY(-12px);
 
-transform:
-translateY(-12px);
-
-box-shadow:
-0 0 30px rgba(
-59,
-130,
-246,
-0.7
-);
-
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.7);
 }
-
 
 /* Image */
 
-.image-box{
+.image-box {
+  height: 260px;
 
-height:260px;
-
-overflow:hidden;
-
+  overflow: hidden;
 }
 
-.image-box img{
+.image-box img {
+  width: 100%;
 
-width:100%;
+  height: 100%;
 
-height:100%;
+  object-fit: cover;
 
-object-fit:cover;
-
-transition:.5s;
-
+  transition: 0.5s;
 }
 
-.product-card:hover img{
-
-transform:scale(1.08);
-
+.product-card:hover img {
+  transform: scale(1.08);
 }
-
 
 /* Content */
 
-.product-content{
-
-padding:25px;
-
+.product-content {
+  padding: 25px;
 }
 
-.product-content h3{
+.product-content h3 {
+  font-size: 24px;
 
-font-size:24px;
-
-margin-bottom:15px;
-
+  margin-bottom: 15px;
 }
 
-.product-content p{
+.product-content p {
+  line-height: 1.7;
 
-line-height:1.7;
+  color: #cbd5e1;
 
-color:#cbd5e1;
+  margin-bottom: 20px;
 
-margin-bottom:20px;
-
-min-height:50px;
-
+  min-height: 50px;
 }
-
 
 /* Bottom */
 
-.bottom{
+.bottom {
+  display: flex;
 
-display:flex;
+  justify-content: space-between;
 
-justify-content:space-between;
+  align-items: center;
 
-align-items:center;
-
-margin-top:20px;
-
+  margin-top: 20px;
 }
 
-.price{
+.price {
+  font-size: 25px;
 
-font-size:25px;
+  font-weight: bold;
 
-font-weight:bold;
-
-color:#60a5fa;
-
+  color: #60a5fa;
 }
 
+.view-btn {
+  padding: 12px 20px;
 
-.view-btn{
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
 
-padding:12px 20px;
+  border-radius: 30px;
 
-background:
-linear-gradient(
-90deg,
-#2563eb,
-#3b82f6
-);
+  color: white;
 
-border-radius:30px;
+  text-decoration: none;
 
-color:white;
-
-text-decoration:none;
-
-transition:.4s;
-
+  transition: 0.4s;
 }
 
-.view-btn:hover{
-
-box-shadow:
-0 0 20px #2563eb;
-
+.view-btn:hover {
+  box-shadow: 0 0 20px #2563eb;
 }
-
 
 /* Empty */
 
-.empty{
+.empty {
+  text-align: center;
 
-text-align:center;
+  margin-top: 50px;
 
-margin-top:50px;
-
-color:#cbd5e1;
-
+  color: #cbd5e1;
 }
-
 
 /* Footer */
 
-footer{
+footer {
+  margin-top: 50px;
 
-margin-top:50px;
+  padding: 30px;
 
-padding:30px;
+  text-align: center;
 
-text-align:center;
-
-background:
-rgba(
-255,
-255,
-255,
-0.05
-);
-
+  background: rgba(255, 255, 255, 0.05);
 }

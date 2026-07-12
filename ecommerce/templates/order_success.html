@@ -1,156 +1,62 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta charset="UTF-8">
+    <title>Order Success</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/order_success.css' %}" />
 
-<title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+  </head>
 
-Order Success
+  <body>
+    {% include 'navbar.html' %}
 
-</title>
+    <div class="container">
+      <div class="success-box">
+        <div class="success-icon">✓</div>
 
-<link rel="stylesheet"
-href="{% static 'css/order_success.css' %}">
+        <h1>Order Placed Successfully!</h1>
 
-<link rel="stylesheet"
-href="{% static 'css/navbar.css' %}">
+        <p class="subtitle">
+          Thank you for shopping with Student Essentials 🎓
+        </p>
 
-</head>
+        <p class="message">
+          Your order has been received and is now being processed.
+        </p>
 
-<body>
+        <div class="info-box">
+          <div class="info-card">
+            <h3>Estimated Delivery</h3>
 
-{% include 'navbar.html' %}
+            <p>3–5 Days</p>
+          </div>
 
+          <div class="info-card">
+            <h3>Payment Status</h3>
 
-<div class="container">
+            <p>Confirmed</p>
+          </div>
 
-<div class="success-box">
+          <div class="info-card">
+            <h3>Order Status</h3>
 
-<div class="success-icon">
+            <p>Processing</p>
+          </div>
+        </div>
 
-✓
+        <div class="buttons">
+          <a href="{% url 'home' %}" class="home-btn"> Continue Shopping </a>
 
-</div>
-
-
-<h1>
-
-Order Placed Successfully!
-
-</h1>
-
-
-<p class="subtitle">
-
-Thank you for shopping with
-Student Essentials 🎓
-
-</p>
-
-
-<p class="message">
-
-Your order has been received and
-is now being processed.
-
-</p>
-
-
-
-<div class="info-box">
-
-<div class="info-card">
-
-
-
-<h3>
-
-Estimated Delivery
-
-</h3>
-
-<p>
-
-3–5 Days
-
-</p>
-
-</div>
-
-
-
-<div class="info-card">
-
-
-
-<h3>
-
-Payment Status
-
-</h3>
-
-<p>
-
-Confirmed
-
-</p>
-
-</div>
-
-
-
-<div class="info-card">
-
-
-
-<h3>
-
-Order Status
-
-</h3>
-
-<p>
-
-Processing
-
-</p>
-
-</div>
-
-</div>
-
-
-
-<div class="buttons">
-
-<a href="{% url 'home' %}"
-class="home-btn">
-
-Continue Shopping
-
-</a>
-
-
-<a href="{% url 'my_orders' %}"
-class="orders-btn">
-
-My Orders
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</body>
-
+          <a href="{% url 'my_orders' %}" class="orders-btn"> My Orders </a>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

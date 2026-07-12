@@ -1,95 +1,46 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta charset="UTF-8">
+    <title>Pending Requests</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/pending.css' %}" />
+  </head>
 
-    <title>
+  <body>
+    <div class="container">
+      <h1>Pending Requests</h1>
 
-        Pending Requests
+      <table>
+        <tr>
+          <th>Username</th>
 
-    </title>
+          <th>Action</th>
+        </tr>
 
-    <link rel="stylesheet"
-          href="{% static 'css/pending.css' %}">
+        {% for user in pending %}
 
-</head>
+        <tr>
+          <td>{{ user.user.username }}</td>
 
-<body>
+          <td>
+            <a href="{% url 'approve_user' user.id %}" class="approve">
+              Approve
+            </a>
 
-<div class="container">
+            <a href="{% url 'reject_user' user.id %}" class="reject">
+              Reject
+            </a>
+          </td>
+        </tr>
 
-<h1>
-
-Pending Requests
-
-</h1>
-
-
-<table>
-
-<tr>
-
-<th>
-
-Username
-
-</th>
-
-<th>
-
-Action
-
-</th>
-
-</tr>
-
-
-{% for user in pending %}
-
-<tr>
-
-<td>
-
-{{ user.user.username }}
-
-</td>
-
-<td>
-
-<a
-href="{% url 'approve_user' user.id %}"
-class="approve">
-
-Approve
-
-</a>
-
-
-<a
-href="{% url 'reject_user' user.id %}"
-class="reject">
-
-Reject
-
-</a>
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</table>
-
-</div>
-
-</body>
-
+        {% endfor %}
+      </table>
+    </div>
+  </body>
 </html>

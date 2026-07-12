@@ -1,317 +1,147 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+  </head>
 
-    <title>
+  <body>
+    <!-- Sidebar -->
 
-        Admin Dashboard
+    <div class="sidebar">
+      <h2>Student Essentials</h2>
 
-    </title>
-
-    <link rel="stylesheet"
-          href="{% static 'css/admin.css' %}">
-
-</head>
-
-<body>
-
-<!-- Sidebar -->
-
-<div class="sidebar">
-
-    <h2>
-
-        Student Essentials
-
-    </h2>
-
-    <ul>
-
+      <ul>
         <li>
-
-            <a href="{% url 'admin_dashboard' %}">
-
-                Dashboard
-
-            </a>
-
+          <a href="{% url 'admin_dashboard' %}"> Dashboard </a>
         </li>
 
         <li>
-
-            <a href="{% url 'add_product' %}">
-
-                Add Product
-
-            </a>
-
+          <a href="{% url 'add_product' %}"> Add Product </a>
         </li>
 
         <li>
-
-            <a href="{% url 'manage_products' %}">
-
-                Manage Products
-
-            </a>
-
+          <a href="{% url 'manage_products' %}"> Manage Products </a>
         </li>
 
         <li>
-
-            <a href="{% url 'orders' %}">
-
-                Orders
-
-            </a>
-
+          <a href="{% url 'orders' %}"> Orders </a>
         </li>
 
         <li>
-
-            <a href="{% url 'users' %}">
-
-                Users
-
-            </a>
-
+          <a href="{% url 'users' %}"> Users </a>
         </li>
 
         <li>
-
-            <a href="{% url 'pending_requests' %}">
-
-                Pending Requests
-
-            </a>
-
+          <a href="{% url 'pending_requests' %}"> Pending Requests </a>
         </li>
 
         <li>
-
-            <a href="{% url 'logout' %}">
-
-                Logout
-
-            </a>
-
+          <a href="{% url 'sales_report' %}"> Sales Report </a>
         </li>
 
-    </ul>
+        <li>
+          <a href="{% url 'team' %}"> Team </a>
+        </li>
 
-</div>
-
-
-
-<!-- Main Content -->
-
-<div class="main-content">
-
-    <h1>
-
-        Welcome,
-
-        {{ request.user.username }}
-
-    </h1>
-
-
-    <!-- Cards -->
-
-    <div class="cards">
-
-        <div class="card">
-
-            <h2>
-
-                {{ products.count }}
-
-            </h2>
-
-            <p>
-
-                Total Products
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h2>
-
-                {{ orders.count }}
-
-            </h2>
-
-            <p>
-
-                Total Orders
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h2>
-
-                {{ users.count }}
-
-            </h2>
-
-            <p>
-
-                Total Users
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h2>
-
-                {{ pending.count }}
-
-            </h2>
-
-            <p>
-
-                Pending Requests
-
-            </p>
-
-        </div>
-
+        <li>
+          <a href="{% url 'logout' %}"> Logout </a>
+        </li>
+      </ul>
     </div>
 
+    <!-- Main Content -->
 
+    <div class="main-content">
+      <h1>Welcome, {{ request.user.username }}</h1>
 
-    <!-- Product Table -->
+      <!-- Cards -->
 
-    <div class="table-box">
+      <div class="cards">
+        <div class="card">
+          <h2>{{ products.count }}</h2>
 
-        <h2>
+          <p>Total Products</p>
+        </div>
 
-            Product List
+        <div class="card">
+          <h2>{{ orders.count }}</h2>
 
-        </h2>
+          <p>Total Orders</p>
+        </div>
+
+        <div class="card">
+          <h2>{{ users.count }}</h2>
+
+          <p>Total Users</p>
+        </div>
+
+        <div class="card">
+          <h2>{{ pending.count }}</h2>
+
+          <p>Pending Requests</p>
+        </div>
+      </div>
+
+      <!-- Product Table -->
+
+      <div class="table-box">
+        <h2>Product List</h2>
 
         <table>
+          <thead>
+            <tr>
+              <th>Name</th>
 
-            <thead>
+              <th>Price</th>
 
-                <tr>
+              <th>Category</th>
 
-                    <th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-                        Name
-
-                    </th>
-
-                    <th>
-
-                        Price
-
-                    </th>
-
-                    <th>
-
-                        Category
-
-                    </th>
-
-                    <th>
-
-                        Action
-
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
+          <tbody>
             {% for product in products %}
 
-                <tr>
+            <tr>
+              <td>{{ product.name }}</td>
 
-                    <td>
+              <td>₹{{ product.price }}</td>
 
-                        {{ product.name }}
+              <td>{{ product.category }}</td>
 
-                    </td>
+              <td>
+                <a href="{% url 'edit_product' product.id %}" class="edit-btn">
+                  Edit
+                </a>
 
-                    <td>
-
-                        ₹{{ product.price }}
-
-                    </td>
-
-                    <td>
-
-                        {{ product.category }}
-
-                    </td>
-
-                    <td>
-
-                        <a
-                        href="{% url 'edit_product' product.id %}"
-                        class="edit-btn">
-
-                            Edit
-
-                        </a>
-
-
-                        <a
-                        href="{% url 'delete_product' product.id %}"
-                        class="delete-btn">
-
-                            Delete
-
-                        </a>
-
-                    </td>
-
-                </tr>
+                <a
+                  href="{% url 'delete_product' product.id %}"
+                  class="delete-btn"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
 
             {% empty %}
 
-                <tr>
-
-                    <td colspan="4">
-
-                        No Products Available
-
-                    </td>
-
-                </tr>
+            <tr>
+              <td colspan="4">No Products Available</td>
+            </tr>
 
             {% endfor %}
-
-            </tbody>
-
+          </tbody>
         </table>
-
+      </div>
     </div>
-
-</div>
-
-</body>
-
+  </body>
 </html>

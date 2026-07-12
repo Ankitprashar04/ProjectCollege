@@ -1,0 +1,185 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #020617, #0f172a, #111827);
+
+  color: white;
+
+  overflow-x: hidden;
+
+  min-height: 100vh;
+
+  position: relative;
+}
+
+/* Background Animation */
+
+.background span {
+  position: absolute;
+
+  width: 250px;
+
+  height: 250px;
+
+  background: rgba(59, 130, 246, 0.15);
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  animation: float 10s infinite alternate;
+}
+
+.background span:nth-child(1) {
+  top: 5%;
+  left: 5%;
+}
+
+.background span:nth-child(2) {
+  top: 50%;
+  right: 5%;
+}
+
+.background span:nth-child(3) {
+  bottom: 5%;
+  left: 30%;
+}
+
+.background span:nth-child(4) {
+  bottom: 15%;
+  right: 30%;
+}
+
+@keyframes float {
+  100% {
+    transform: translateY(-60px);
+  }
+}
+
+/* Main */
+
+.team-container {
+  width: 90%;
+
+  margin: auto;
+
+  padding: 80px 0;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+.team-container h1 {
+  font-size: 50px;
+
+  text-align: center;
+
+  margin-bottom: 15px;
+
+  text-shadow: 0 0 25px #3b82f6;
+}
+
+.subtitle {
+  text-align: center;
+
+  margin-bottom: 50px;
+
+  color: #cbd5e1;
+}
+
+/* Team Grid */
+
+.team-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 30px;
+}
+
+/* Card */
+
+.team-card {
+  background: rgba(255, 255, 255, 0.05);
+
+  padding: 30px;
+
+  border-radius: 30px;
+
+  text-align: center;
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  transition: 0.5s;
+}
+
+.team-card:hover {
+  transform: translateY(-10px);
+
+  box-shadow: 0 0 30px #3b82f6;
+}
+
+.team-card img {
+  width: 130px;
+
+  height: 130px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  margin-bottom: 20px;
+
+  border: 3px solid #3b82f6;
+}
+
+.team-card h2 {
+  margin-bottom: 10px;
+}
+
+.role {
+  color: #60a5fa;
+
+  margin-bottom: 15px;
+
+  font-weight: bold;
+}
+
+/* Project Box */
+
+.project-box {
+  margin-top: 50px;
+
+  padding: 35px;
+
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  text-align: center;
+
+  backdrop-filter: blur(20px);
+}
+
+.project-box h2 {
+  margin-bottom: 15px;
+
+  color: #60a5fa;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}

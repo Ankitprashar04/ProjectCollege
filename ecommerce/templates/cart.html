@@ -1,163 +1,73 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta charset="UTF-8">
+    <title>Cart</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
 
-<title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+  </head>
 
-Cart
+  <body>
+    {% include 'navbar.html' %}
 
-</title>
+    <div class="container">
+      <h1>My Cart</h1>
 
-<link rel="stylesheet"
-href="{% static 'css/cart.css' %}">
+      {% for item in cart_items %}
 
-<link rel="stylesheet"
-href="{% static 'css/navbar.css' %}">
+      <div class="cart-box">
+        <div class="left">
+          <img
+            src="{{ item.product.image.url }}"
+            alt="{{ item.product.name }}"
+          />
 
-</head>
+          <div class="details">
+            <h2>{{ item.product.name }}</h2>
 
-<body>
+            <p>Price: ₹{{ item.product.price }}</p>
 
-{% include 'navbar.html' %}
+            <p>Subtotal: ₹{{ item.product.price|floatformat:0 }}</p>
+          </div>
+        </div>
 
+        <div class="quantity">
+          <a href="{% url 'decrease_quantity' item.id %}"> − </a>
 
-<div class="container">
+          <span> {{ item.quantity }} </span>
 
-<h1>
+          <a href="{% url 'increase_quantity' item.id %}"> + </a>
+        </div>
 
-My Cart
+        <a href="{% url 'remove_cart' item.id %}" class="remove"> Remove </a>
+      </div>
 
-</h1>
+      {% empty %}
 
+      <div class="empty-box">
+        <h2>Cart is Empty</h2>
 
-{% for item in cart_items %}
+        <p>Add products to continue shopping</p>
+      </div>
 
-<div class="cart-box">
+      {% endfor %}
 
-<div class="left">
+      <div class="total">
+        <div>
+          <h2>Total: ₹{{ total }}</h2>
+        </div>
 
-<img
-src="{{ item.product.image.url }}"
-alt="{{ item.product.name }}">
-
-
-<div class="details">
-
-<h2>
-
-{{ item.product.name }}
-
-</h2>
-
-<p>
-
-Price:
-₹{{ item.product.price }}
-
-</p>
-
-<p>
-
-Subtotal:
-₹{{ item.product.price|floatformat:0 }}
-
-</p>
-
-</div>
-
-</div>
-
-
-
-<div class="quantity">
-
-<a href="{% url 'decrease_quantity' item.id %}">
-
-−
-
-</a>
-
-
-<span>
-
-{{ item.quantity }}
-
-</span>
-
-
-<a href="{% url 'increase_quantity' item.id %}">
-
-+
-
-</a>
-
-</div>
-
-
-
-<a href="{% url 'remove_cart' item.id %}"
-class="remove">
-
-Remove
-
-</a>
-
-</div>
-
-{% empty %}
-
-<div class="empty-box">
-
-<h2>
-
-Cart is Empty 
-
-</h2>
-
-<p>
-
-Add products to continue shopping
-
-</p>
-
-</div>
-
-{% endfor %}
-
-
-
-<div class="total">
-
-<div>
-
-<h2>
-
-Total:
-₹{{ total }}
-
-</h2>
-
-</div>
-
-<a href="{% url 'checkout' %}"
-class="checkout-btn">
-
-Proceed To Checkout →
-
-</a>
-
-</div>
-
-</div>
-
-</body>
-
+        <a href="{% url 'checkout' %}" class="checkout-btn">
+          Proceed To Checkout →
+        </a>
+      </div>
+    </div>
+  </body>
 </html>

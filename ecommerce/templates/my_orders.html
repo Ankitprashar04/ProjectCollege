@@ -1,88 +1,47 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
+    <title>My Orders</title>
 
-<title>My Orders</title>
+    <link rel="stylesheet" href="{% static 'css/my_orders.css' %}" />
 
-<link rel="stylesheet"
-href="{% static 'css/my_orders.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+  </head>
 
-<link rel="stylesheet"
-href="{% static 'css/navbar.css' %}">
+  <body>
+    {% include 'navbar.html' %}
 
-</head>
+    <div class="container">
+      <h1>My Orders</h1>
 
-<body>
+      {% for order in orders %}
 
-{% include 'navbar.html' %}
+      <div class="order-box">
+        <img src="{{ order.product.image.url }}" />
 
-<div class="container">
+        <div class="order-info">
+          <h2>{{ order.product.name }}</h2>
 
-<h1>My Orders</h1>
+          <p>Quantity: {{ order.quantity }}</p>
 
-{% for order in orders %}
+          <p>Price: ₹{{ order.total_price }}</p>
 
-<div class="order-box">
+          <p>
+            Status:
+            <span class="{{ order.status|lower }}"> {{ order.status }} </span>
+          </p>
 
-<img src="{{ order.product.image.url }}">
+          <p>Date: {{ order.created_at }}</p>
+        </div>
+      </div>
 
-<div class="order-info">
+      {% empty %}
 
-<h2>
+      <h2>No Orders Found</h2>
 
-{{ order.product.name }}
-
-</h2>
-
-<p>
-
-Quantity:
-{{ order.quantity }}
-
-</p>
-
-<p>
-
-Price:
-₹{{ order.total_price }}
-
-</p>
-
-<p>
-
-Status:
-<span class="{{ order.status|lower }}">
-
-{{ order.status }}
-
-</span>
-
-</p>
-
-<p>
-
-Date:
-{{ order.created_at }}
-
-</p>
-
-</div>
-
-</div>
-
-{% empty %}
-
-<h2>
-
-No Orders Found
-
-</h2>
-
-{% endfor %}
-
-</div>
-
-</body>
+      {% endfor %}
+    </div>
+  </body>
 </html>

@@ -1,250 +1,154 @@
-*{
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
-margin:0;
-padding:0;
-box-sizing:border-box;
-
-font-family:Arial,sans-serif;
-
+  font-family: Arial, sans-serif;
 }
 
-body{
+body {
+  min-height: 100vh;
 
-min-height:100vh;
+  padding: 40px;
 
-padding:40px;
+  background: linear-gradient(135deg, #020617, #0f172a, #111827);
 
-background:
-linear-gradient(
-135deg,
-#020617,
-#0f172a,
-#111827
-);
-
-color:white;
-
+  color: white;
 }
-
 
 /* Container */
 
-.container{
+.container {
+  width: 95%;
 
-width:95%;
-
-margin:auto;
-
+  margin: auto;
 }
 
-.container h1{
+.container h1 {
+  font-size: 40px;
 
-font-size:40px;
+  margin-bottom: 35px;
 
-margin-bottom:35px;
+  text-align: center;
 
-text-align:center;
-
-text-shadow:
-0 0 20px #3b82f6;
-
+  text-shadow: 0 0 20px #3b82f6;
 }
-
-
 
 /* Table Box */
 
-.table-box{
+.table-box {
+  padding: 25px;
 
-padding:25px;
+  border-radius: 30px;
 
-border-radius:30px;
+  background: rgba(255, 255, 255, 0.05);
 
-background:
-rgba(
-255,
-255,
-255,
-0.05
-);
+  backdrop-filter: blur(20px);
 
-backdrop-filter:blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
-border:
-1px solid rgba(
-255,
-255,
-255,
-0.1
-);
-
-overflow-x:auto;
-
+  overflow-x: auto;
 }
-
-
 
 /* Table */
 
-table{
+table {
+  width: 100%;
 
-width:100%;
-
-border-collapse:collapse;
-
+  border-collapse: collapse;
 }
 
-th{
+th {
+  padding: 18px;
 
-padding:18px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
 
-background:
-linear-gradient(
-90deg,
-#2563eb,
-#3b82f6
-);
+  color: white;
 
-color:white;
-
-font-size:18px;
-
+  font-size: 18px;
 }
 
-td{
+td {
+  padding: 20px;
 
-padding:20px;
+  text-align: center;
 
-text-align:center;
-
-border-bottom:
-1px solid rgba(
-255,
-255,
-255,
-0.1
-);
-
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-tr:hover{
-
-background:
-rgba(
-255,
-255,
-255,
-0.05
-);
-
+tr:hover {
+  background: rgba(255, 255, 255, 0.05);
 }
-
-
 
 /* Product Image */
 
-.product-image{
+.product-image {
+  width: 70px;
 
-width:70px;
+  height: 70px;
 
-height:70px;
+  border-radius: 15px;
 
-border-radius:15px;
-
-object-fit:cover;
-
+  object-fit: cover;
 }
-
-
 
 /* Buttons */
 
-.edit-btn{
+.edit-btn {
+  display: inline-block;
 
-display:inline-block;
+  padding: 10px 18px;
 
-padding:10px 18px;
+  margin-right: 10px;
 
-margin-right:10px;
+  border-radius: 12px;
 
-border-radius:12px;
+  text-decoration: none;
 
-text-decoration:none;
+  color: white;
 
-color:white;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
 
-background:
-linear-gradient(
-90deg,
-#22c55e,
-#16a34a
-);
-
-transition:.4s;
-
+  transition: 0.4s;
 }
 
-.edit-btn:hover{
-
-box-shadow:
-0 0 20px #22c55e;
-
+.edit-btn:hover {
+  box-shadow: 0 0 20px #22c55e;
 }
 
+.delete-btn {
+  display: inline-block;
 
-.delete-btn{
+  padding: 10px 18px;
 
-display:inline-block;
+  border-radius: 12px;
 
-padding:10px 18px;
+  text-decoration: none;
 
-border-radius:12px;
+  color: white;
 
-text-decoration:none;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
 
-color:white;
-
-background:
-linear-gradient(
-90deg,
-#ef4444,
-#dc2626
-);
-
-transition:.4s;
-
+  transition: 0.4s;
 }
 
-.delete-btn:hover{
-
-box-shadow:
-0 0 20px #ef4444;
-
+.delete-btn:hover {
+  box-shadow: 0 0 20px #ef4444;
 }
-
-
 
 /* Responsive */
 
-@media(max-width:768px){
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
 
-.container{
+  table {
+    font-size: 14px;
+  }
 
-width:100%;
-
-}
-
-table{
-
-font-size:14px;
-
-}
-
-.product-image{
-
-width:50px;
-height:50px;
-
-}
-
+  .product-image {
+    width: 50px;
+    height: 50px;
+  }
 }

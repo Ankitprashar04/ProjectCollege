@@ -1,73 +1,40 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <title>Edit Product</title>
 
-<head>
+    <link rel="stylesheet" href="{% static 'css/edit_product.css' %}" />
+  </head>
 
-<title>
+  <body>
+    <div class="container">
+      <h1>Edit Product</h1>
 
-Edit Product
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
-</title>
+        <input type="text" name="name" value="{{ product.name }}" required />
 
-<link rel="stylesheet"
-href="{% static 'css/edit_product.css' %}">
+        <input
+          type="number"
+          name="price"
+          value="{{ product.price }}"
+          required
+        />
 
-</head>
+        <input
+          type="text"
+          name="category"
+          value="{{ product.category }}"
+          required
+        />
 
-<body>
+        <input type="file" name="image" />
 
-<div class="container">
-
-<h1>
-
-Edit Product
-
-</h1>
-
-<form
-method="POST"
-enctype="multipart/form-data">
-
-{% csrf_token %}
-
-<input
-type="text"
-name="name"
-value="{{ product.name }}"
-required>
-
-
-<input
-type="number"
-name="price"
-value="{{ product.price }}"
-required>
-
-
-<input
-type="text"
-name="category"
-value="{{ product.category }}"
-required>
-
-
-<input
-type="file"
-name="image">
-
-
-<button type="submit">
-
-Update Product
-
-</button>
-
-</form>
-
-</div>
-
-</body>
-
+        <button type="submit">Update Product</button>
+      </form>
+    </div>
+  </body>
 </html>

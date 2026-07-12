@@ -1,214 +1,173 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta charset="UTF-8">
+    <title>Student Essentials</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 
-    <title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+  </head>
 
-        Student Essentials
+  <body>
+    {% include 'navbar.html' %}
 
-    </title>
+    <!-- Background Animation -->
 
-    <link rel="stylesheet"
-          href="{% static 'css/home.css' %}">
+    <div class="bg-animation">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-    <link rel="stylesheet"
-          href="{% static 'css/navbar.css' %}">
+    <!-- Hero Section -->
 
-</head>
+    <section class="hero">
+      <div class="hero-left">
+        <span class="tag"> Student Marketplace </span>
 
-<body>
-
-{% include 'navbar.html' %}
-
-
-<!-- Background Animation -->
-
-<div class="bg-animation">
-
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-
-</div>
-
-
-
-<!-- Hero Section -->
-
-<section class="hero">
-
-    <div class="hero-left">
-
-        <span class="tag">
-
-            Student Marketplace
-
-        </span>
-
-        <h1>
-
-            Everything Students Need In One Place
-
-        </h1>
+        <h1>Everything Students Need In One Place</h1>
 
         <p>
-
-            Buy books, notebooks, calculators,
-            stationery and educational essentials
-            at affordable prices.
-
+          Buy books, notebooks, calculators, stationery and educational
+          essentials at affordable prices with fast and secure shopping
+          experience.
         </p>
 
-        <a href="#categories"
-           class="hero-btn">
+        <div class="hero-buttons">
+          <a href="#categories" class="hero-btn"> Explore Products </a>
 
-            Explore Products
+          <a href="#featured" class="hero-btn secondary-btn">
+            Trending Items
+          </a>
+        </div>
+      </div>
 
-        </a>
+      <div class="hero-right">
+        <img src="{% static 'images/student.png' %}" alt="student" />
+      </div>
+    </section>
 
-    </div>
+    <!-- Featured Products -->
 
+    <section class="featured-section" id="featured">
+      <h2 class="section-title">Featured Products</h2>
 
-    <div class="hero-right">
+      <div class="featured-grid">
+        <div class="featured-card">
+          <img src="{% static 'images/image.png' %}" alt="" />
 
-        <img src="{% static 'images/student.png' %}"
-             alt="student">
+          <h3>Programming Book</h3>
 
-    </div>
+          <p>Best coding and development books for students.</p>
 
-</section>
-
-
-
-<!-- Categories -->
-
-<section
-class="products-section"
-id="categories">
-
-    <h2 class="section-title">
-
-        Shop By Categories
-
-    </h2>
-
-
-    <div class="product-grid">
-
-
-        <div class="product-card">
-
-            <img src="{% static 'images/shopping.webp' %}">
-
-            <div class="product-content">
-
-                <h3>
-
-                    Books
-
-                </h3>
-
-                <p>
-
-                    Programming and academic books
-
-                </p>
-
-                <a href="/category/Books/"
-                   class="cart-btn">
-
-                    View Products
-
-                </a>
-
-            </div>
-
+          <span> ₹499 </span>
         </div>
 
+        <div class="featured-card">
+          <img src="{% static 'images/image3.jpg' %}" alt="" />
 
+          <h3>Scientific Calculator</h3>
 
-        <div class="product-card">
+          <p>Advanced calculator for exams and engineering students.</p>
 
-            <img src="{% static 'images/stationary.webp' %}">
-
-            <div class="product-content">
-
-                <h3>
-
-                    Stationery
-
-                </h3>
-
-                <p>
-
-                    Pens, notebooks and study materials
-
-                </p>
-
-                <a href="/category/Stationery/"
-                   class="cart-btn">
-
-                    View Products
-
-                </a>
-
-            </div>
-
+          <span> ₹899 </span>
         </div>
 
+        <div class="featured-card">
+          <img src="{% static 'images/copy.png' %}" alt="" />
 
+          <h3>Premium Notebook</h3>
+
+          <p>High quality notebooks for study and notes preparation.</p>
+
+          <span> ₹199 </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+
+    <section class="products-section" id="categories">
+      <h2 class="section-title">Shop By Categories</h2>
+
+      <div class="product-grid">
+        {% for category in categories %}
 
         <div class="product-card">
+          {% if category == "Books" %}
 
-            <img src="{% static 'images/electric.png' %}">
+          <img src="{% static 'images/shopping.webp' %}" alt="Books" />
 
-            <div class="product-content">
+          {% elif category == "Electronics" %}
 
-                <h3>
+          <img src="{% static 'images/electric.png' %}" alt="Electronics" />
 
-                    Electronics
+          {% elif category == "Stationery" %}
 
-                </h3>
+          <img src="{% static 'images/stationary.webp' %}" alt="Stationery" />
 
-                <p>
+          {% else %}
 
-                    Calculators and gadgets
+          <img src="{% static 'images/student.png' %}" alt="Category" />
 
-                </p>
+          {% endif %}
 
-                <a href="/category/Electronics/"
-                   class="cart-btn">
+          <div class="product-content">
+            <h3>{{ category }}</h3>
 
-                    View Products
+            <p>Explore premium {{ category }} products for students.</p>
 
-                </a>
-
-            </div>
-
+            <a href="{% url 'category_products' category %}" class="cart-btn">
+              View Products
+            </a>
+          </div>
         </div>
 
+        {% empty %}
 
-    </div>
+        <h2>No Categories Available</h2>
 
-</section>
+        {% endfor %}
+      </div>
+    </section>
 
+    <!-- Why Choose Us -->
 
+    <section class="why-section">
+      <h2 class="section-title">Why Choose Us</h2>
 
-<footer>
+      <div class="why-grid">
+        <div class="why-card">
+          <h3>Affordable Price</h3>
 
-    © 2026 Student Essentials
+          <p>Budget friendly products specially designed for students.</p>
+        </div>
 
-</footer>
+        <div class="why-card">
+          <h3>Fast Delivery</h3>
 
-</body>
+          <p>Quick and reliable delivery service for all orders.</p>
+        </div>
 
+        <div class="why-card">
+          <h3>Secure Payment</h3>
+
+          <p>Safe payment methods including QR payment and COD.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+
+    <footer>© 2026 Student Essentials</footer>
+  </body>
 </html>

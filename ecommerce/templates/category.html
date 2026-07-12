@@ -1,131 +1,64 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta charset="UTF-8">
+    <title>{{ category }} - Student Essentials</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/category.css' %}" />
 
-    <title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+  </head>
 
-        {{ category }} - Student Essentials
+  <body>
+    {% include 'navbar.html' %}
 
-    </title>
+    <!-- Hero -->
 
-    <link rel="stylesheet"
-          href="{% static 'css/category.css' %}">
+    <section class="category-hero">
+      <h1>{{ category }} Products</h1>
 
-    <link rel="stylesheet"
-          href="{% static 'css/navbar.css' %}">
+      <p>Find the best products for your studies</p>
+    </section>
 
-</head>
+    <!-- Products -->
 
-<body>
+    <section class="products-section">
+      <div class="product-grid">
+        {% for product in products %}
 
-{% include 'navbar.html' %}
+        <div class="product-card">
+          <div class="image-box">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+          </div>
 
+          <div class="product-content">
+            <h3>{{ product.name }}</h3>
 
-<!-- Hero -->
+            <p>{{ product.description|truncatewords:15 }}</p>
 
-<section class="category-hero">
+            <div class="bottom">
+              <span class="price"> ₹{{ product.price }} </span>
 
-    <h1>
-
-        {{ category }} Products
-
-    </h1>
-
-    <p>
-
-        Find the best products for your studies
-
-    </p>
-
-</section>
-
-
-
-<!-- Products -->
-
-<section class="products-section">
-
-<div class="product-grid">
-
-{% for product in products %}
-
-<div class="product-card">
-
-    <div class="image-box">
-
-        <img src="{{ product.image.url }}"
-             alt="{{ product.name }}">
-
-    </div>
-
-
-    <div class="product-content">
-
-        <h3>
-
-            {{ product.name }}
-
-        </h3>
-
-
-        <p>
-
-            {{ product.description|truncatewords:15 }}
-
-        </p>
-
-
-        <div class="bottom">
-
-            <span class="price">
-
-                ₹{{ product.price }}
-
-            </span>
-
-
-            <a href="{% url 'product_detail' product.id %}"
-               class="view-btn">
-
+              <a href="{% url 'product_detail' product.id %}" class="view-btn">
                 View Details
-
-            </a>
-
+              </a>
+            </div>
+          </div>
         </div>
 
-    </div>
+        {% empty %}
 
-</div>
+        <h2 class="empty">No Products Found</h2>
 
-{% empty %}
+        {% endfor %}
+      </div>
+    </section>
 
-<h2 class="empty">
-
-    No Products Found
-
-</h2>
-
-{% endfor %}
-
-</div>
-
-</section>
-
-
-
-<footer>
-
-© 2026 Student Essentials
-
-</footer>
-
-</body>
+    <footer>© 2026 Student Essentials</footer>
+  </body>
 </html>

@@ -1,139 +1,169 @@
-*{
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
-margin:0;
-padding:0;
-box-sizing:border-box;
-
-font-family:Arial,sans-serif;
-
+  font-family: "Segoe UI", sans-serif;
 }
 
-body{
+body {
+  min-height: 100vh;
 
-background:#f4f6fa;
+  display: flex;
 
-display:flex;
+  justify-content: center;
 
-justify-content:center;
+  align-items: center;
 
-align-items:center;
+  padding: 30px;
 
-min-height:100vh;
-
-padding:20px;
-
+  background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
 }
 
-.container{
+.container {
+  width: 100%;
+  max-width: 600px;
 
-width:500px;
+  background: rgba(255, 255, 255, 0.08);
 
-background:white;
+  backdrop-filter: blur(15px);
 
-padding:40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
-border-radius:20px;
+  border-radius: 25px;
 
-box-shadow:
-0 5px 20px rgba(
-0,
-0,
-0,
-0.1
-);
+  padding: 40px;
 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.container h1{
+.container h1 {
+  text-align: center;
 
-text-align:center;
+  margin-bottom: 30px;
 
-margin-bottom:30px;
+  color: white;
 
-color:#2563eb;
-
+  font-size: 32px;
 }
 
+/* Labels */
 
-/* Form Inputs */
+label {
+  display: block;
 
-input{
+  margin-bottom: 8px;
 
-width:100%;
+  color: #e2e8f0;
 
-padding:14px;
-
-margin-bottom:20px;
-
-border:1px solid #ddd;
-
-border-radius:10px;
-
-font-size:16px;
-
-outline:none;
-
-transition:.3s;
-
+  font-weight: 600;
 }
 
-input:focus{
+/* Inputs */
 
-border-color:#2563eb;
+input,
+textarea,
+select {
+  width: 100%;
 
-box-shadow:
-0 0 5px rgba(
-37,
-99,
-235,
-0.4
-);
+  padding: 14px;
 
+  margin-bottom: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: white;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.3s;
 }
 
+input::placeholder,
+textarea::placeholder {
+  color: #cbd5e1;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #3b82f6;
+
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
 
 /* File Input */
 
-input[type="file"]{
+input[type="file"] {
+  background: rgba(255, 255, 255, 0.08);
 
-padding:10px;
-
-background:#f9fafb;
-
+  cursor: pointer;
 }
-
 
 /* Button */
 
-button{
+button {
+  width: 100%;
 
-width:100%;
+  padding: 15px;
 
-padding:15px;
+  border: none;
 
-background:#22c55e;
+  border-radius: 12px;
 
-border:none;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
 
-border-radius:10px;
+  color: white;
 
-color:white;
+  font-size: 16px;
 
-font-size:16px;
+  font-weight: bold;
 
-font-weight:bold;
+  cursor: pointer;
 
-cursor:pointer;
-
-transition:.3s;
-
+  transition: 0.3s;
 }
 
-button:hover{
+button:hover {
+  transform: translateY(-3px);
 
-background:#16a34a;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+}
 
-transform:
-translateY(-2px);
+/* Optional Product Preview */
 
+.preview {
+  text-align: center;
+
+  margin-bottom: 20px;
+}
+
+.preview img {
+  width: 120px;
+
+  height: 120px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 25px;
+  }
+
+  .container h1 {
+    font-size: 26px;
+  }
 }

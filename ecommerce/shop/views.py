@@ -1,3 +1,6 @@
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth import authenticate, login
+from .models import UserProfile
 from django.shortcuts import render, redirect
 from .models import Product
 from .models import Coupon
@@ -20,17 +23,30 @@ from base64 import b64encode
 # Home Page
 def home(request):
 
+    products = Product.objects.all()
+
     categories = Product.objects.values_list(
+
         'category',
+
         flat=True
+
     ).distinct()
 
     return render(
+
         request,
+
         'home.html',
+
         {
+
+            'products': products,
+
             'categories': categories
+
         }
+
     )
 
 
@@ -52,29 +68,26 @@ def category_products(request, category):
 
 
 # Register
-from .models import UserProfile
 
 
 def register_page(request):
 
-    if request.method=="POST":
+    if request.method == "POST":
 
-        username=request.POST['username']
+        username = request.POST['username']
 
-        email=request.POST['email']
+        email = request.POST['email']
 
-        password=request.POST['password']
+        password = request.POST['password']
 
-        role=request.POST['role']
+        role = request.POST['role']
 
-
-        user=User.objects.create_user(
+        user = User.objects.create_user(
 
             username=username,
             email=email,
             password=password
         )
-
 
         UserProfile.objects.create(
 
@@ -84,7 +97,6 @@ def register_page(request):
 
             approved=False
         )
-
 
         messages.success(
 
@@ -97,149 +109,67 @@ def register_page(request):
             'login'
         )
 
-
     return render(
         request,
         'register.html'
     )
 
-# Login
-from django.contrib.auth import authenticate,login
-from django.contrib import messages
-from django.shortcuts import render,redirect
 
+# Login
 
 def login_page(request):
-    if request.method=="POST":
 
-        username=request.POST.get(
+    if request.method == "POST":
 
-            'username'
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        role = request.POST.get('role')
 
-        )
-
-        password=request.POST.get(
-
-            'password'
-
-        )
-
-        role=request.POST.get(
-
-            'role'
-
-        )
-
-
-        user=authenticate(
-
+        user = authenticate(
+            request,
             username=username,
-
             password=password
-
         )
-
 
         if user is not None:
 
-            profile=UserProfile.objects.get(
+            profile = UserProfile.objects.get(user=user)
 
-                user=user
+            # USER LOGIN
+            if role == "user":
 
-            )
+                login(request, user)
+                return redirect('home')
 
+            # ADMIN LOGIN
+            elif role == "admin":
 
-            # Approval Check
+                if profile.role == "admin" and profile.approved:
 
-            if not profile.approved:
+                    login(request, user)
+                    return redirect('admin_dashboard')
 
-                messages.error(
+                else:
 
-                    request,
+                    messages.error(
+                        request,
+                        "Admin approval pending"
+                    )
 
-                    "Account Pending Approval"
-
-                )
-
-                return redirect(
-
-                    'login'
-
-                )
-
-
-            # Role Check
-
-            if role=="admin" and profile.role!="admin":
-
-                messages.error(
-
-                    request,
-
-                    "Access Denied"
-
-                )
-
-                return redirect(
-
-                    'login'
-
-                )
-
-
-            if role=="user" and profile.role!="user":
-
-                messages.error(
-
-                    request,
-
-                    "Wrong Role Selected"
-
-                )
-
-                return redirect(
-
-                    'login'
-
-                )
-
-
-            login(
-
-                request,
-
-                user
-
-            )
-
-
-            return redirect(
-
-                'home'
-
-            )
-
+                    return redirect('login')
 
         else:
 
             messages.error(
-
                 request,
-
-                "Invalid Username or Password"
-
+                "Invalid username or password"
             )
 
-
-    return render(
-
-        request,
-
-        'login.html'
-
-    )
+    return render(request, 'login.html')
 
 # Logout
+
+
 def logout_page(request):
 
     logout(
@@ -252,9 +182,6 @@ def logout_page(request):
 
 
 # Admin Dashboard
-from django.contrib.auth.models import User
-from .models import Product
-from .models import UserProfile
 
 
 @login_required
@@ -267,7 +194,6 @@ def admin_dashboard(request):
             user=request.user
 
         )
-
 
         if profile.role != "admin":
 
@@ -285,7 +211,6 @@ def admin_dashboard(request):
 
         )
 
-
     products = Product.objects.all()
 
     orders = Order.objects.all()
@@ -298,7 +223,6 @@ def admin_dashboard(request):
 
     )
 
-
     return render(
 
         request,
@@ -307,19 +231,17 @@ def admin_dashboard(request):
 
         {
 
-            'products':products,
+            'products': products,
 
-            'orders':orders,
+            'orders': orders,
 
-            'users':users,
+            'users': users,
 
-            'pending':pending
+            'pending': pending
 
         }
 
     )
-
-from django.contrib.auth.decorators import login_required
 
 
 @login_required(login_url='/login/')
@@ -344,6 +266,7 @@ def add_to_cart(request, id):
     return redirect(
         'cart'
     )
+
 
 @login_required(login_url='/login/')
 def cart_page(request):
@@ -370,8 +293,9 @@ def cart_page(request):
         }
     )
 
+
 @login_required(login_url='/login/')
-def increase_quantity(request,id):
+def increase_quantity(request, id):
 
     cart_item = Cart.objects.get(
         id=id
@@ -386,9 +310,8 @@ def increase_quantity(request,id):
     )
 
 
-
 @login_required(login_url='/login/')
-def decrease_quantity(request,id):
+def decrease_quantity(request, id):
 
     cart_item = Cart.objects.get(
         id=id
@@ -405,9 +328,8 @@ def decrease_quantity(request,id):
     )
 
 
-
 @login_required(login_url='/login/')
-def remove_cart(request,id):
+def remove_cart(request, id):
 
     cart_item = Cart.objects.get(
         id=id
@@ -419,33 +341,30 @@ def remove_cart(request,id):
         'cart'
     )
 
-@login_required(login_url='login')
 
+@login_required(login_url='login')
 def checkout(request):
 
-    cart_items=Cart.objects.filter(
+    cart_items = Cart.objects.filter(
 
         user=request.user
 
     )
 
+    total = sum(
 
-    total=sum(
-
-        item.product.price*
+        item.product.price *
         item.quantity
 
         for item in cart_items
 
     )
 
+    discount = 0
 
-    discount=0
+    final_total = total
 
-    final_total=total
-
-    coupon=None
-
+    coupon = None
 
     # Session discount
 
@@ -455,33 +374,29 @@ def checkout(request):
 
     ):
 
-        discount=request.session.get(
+        discount = request.session.get(
 
             'discount'
 
         )
 
-        final_total=total-discount
+        final_total = total-discount
 
-
-
-    if request.method=="POST":
-
+    if request.method == "POST":
 
         # Coupon Apply
 
         if "apply_coupon" in request.POST:
 
-            code=request.POST.get(
+            code = request.POST.get(
 
                 "coupon"
 
             ).strip()
 
-
             try:
 
-                coupon=Coupon.objects.get(
+                coupon = Coupon.objects.get(
 
                     code=code,
 
@@ -489,27 +404,23 @@ def checkout(request):
 
                 )
 
+                discount = (
 
-                discount=(
-
-                    total*
+                    total *
                     coupon.discount
 
                 )/100
 
+                final_total = (
 
-                final_total=(
-
-                    total-
+                    total -
                     discount
 
                 )
 
-
                 request.session[
                     'discount'
-                ]=discount
-
+                ] = discount
 
                 messages.success(
 
@@ -518,7 +429,6 @@ def checkout(request):
                     "Coupon Applied Successfully"
 
                 )
-
 
             except Coupon.DoesNotExist:
 
@@ -530,47 +440,40 @@ def checkout(request):
 
                 )
 
-
-
         # Place Order
 
         elif "place_order" in request.POST:
 
-
-            payment=request.POST.get(
+            payment = request.POST.get(
 
                 'payment'
 
             )
 
-
             for item in cart_items:
 
+                item_total = (
 
-                item_total=(
-
-                    item.product.price*
+                    item.product.price *
                     item.quantity
 
                 )
 
+                if discount > 0:
 
-                if discount>0:
+                    item_total = (
 
-                    item_total=(
-
-                        item_total-
+                        item_total -
 
                         (
 
-                            item_total*
-                            discount/
+                            item_total *
+                            discount /
                             total
 
                         )
 
                     )
-
 
                 Order.objects.create(
 
@@ -588,9 +491,7 @@ def checkout(request):
 
                 )
 
-
             cart_items.delete()
-
 
             request.session.pop(
 
@@ -600,32 +501,25 @@ def checkout(request):
 
             )
 
-
             return redirect(
 
                 'order_success'
 
             )
 
-
-
     # QR Code Generate
 
-    upi_id="ankitprashar88@oksbi"
+    upi_id = "ankitprashar88@oksbi"
 
+    upi_link = f"upi://pay?pa={upi_id}&pn=StudentEssentials&am={final_total}&cu=INR"
 
-    upi_link=f"upi://pay?pa={upi_id}&pn=StudentEssentials&am={final_total}&cu=INR"
-
-
-    qr=qrcode.make(
+    qr = qrcode.make(
 
         upi_link
 
     )
 
-
-    buffer=BytesIO()
-
+    buffer = BytesIO()
 
     qr.save(
 
@@ -635,14 +529,11 @@ def checkout(request):
 
     )
 
-
-    qr_code=b64encode(
+    qr_code = b64encode(
 
         buffer.getvalue()
 
     ).decode()
-
-
 
     return render(
 
@@ -652,21 +543,22 @@ def checkout(request):
 
         {
 
-            'cart_items':cart_items,
+            'cart_items': cart_items,
 
-            'total':total,
+            'total': total,
 
-            'discount':discount,
+            'discount': discount,
 
-            'final_total':final_total,
+            'final_total': final_total,
 
-            'coupon':coupon,
+            'coupon': coupon,
 
-            'qr_code':qr_code
+            'qr_code': qr_code
 
         }
 
     )
+
 
 def order_success(request):
 
@@ -674,6 +566,7 @@ def order_success(request):
         request,
         'order_success.html'
     )
+
 
 @login_required(login_url='/login/')
 def my_orders(request):
@@ -695,6 +588,7 @@ def my_orders(request):
         }
 
     )
+
 
 @login_required
 def add_product(request):
@@ -720,7 +614,6 @@ def add_product(request):
 
         form = ProductForm()
 
-
     return render(
 
         request,
@@ -739,7 +632,7 @@ def add_product(request):
 @login_required
 def manage_products(request):
 
-    products=Product.objects.all()
+    products = Product.objects.all()
 
     return render(
 
@@ -749,7 +642,7 @@ def manage_products(request):
 
         {
 
-            'products':products
+            'products': products
 
         }
 
@@ -759,7 +652,7 @@ def manage_products(request):
 @login_required
 def orders_page(request):
 
-    orders=Order.objects.all()
+    orders = Order.objects.all()
 
     return render(
 
@@ -769,7 +662,7 @@ def orders_page(request):
 
         {
 
-            'orders':orders
+            'orders': orders
 
         }
 
@@ -779,7 +672,7 @@ def orders_page(request):
 @login_required
 def users_page(request):
 
-    users=UserProfile.objects.all()
+    users = UserProfile.objects.all()
 
     return render(
 
@@ -789,7 +682,7 @@ def users_page(request):
 
         {
 
-            'users':users
+            'users': users
 
         }
 
@@ -799,7 +692,7 @@ def users_page(request):
 @login_required
 def pending_requests(request):
 
-    pending=UserProfile.objects.filter(
+    pending = UserProfile.objects.filter(
         approved=False
     )
 
@@ -811,11 +704,12 @@ def pending_requests(request):
 
         {
 
-            'pending':pending
+            'pending': pending
 
         }
 
     )
+
 
 @login_required
 def update_order_status(
@@ -831,7 +725,6 @@ def update_order_status(
 
     )
 
-
     if request.method == "POST":
 
         order.status = request.POST.get(
@@ -842,13 +735,11 @@ def update_order_status(
 
         order.save()
 
-
     return redirect(
 
         'orders'
 
     )
-
 
 
 @login_required
@@ -866,6 +757,8 @@ def approve_user(
     return redirect(
         'pending_requests'
     )
+
+
 @login_required
 def reject_user(
     request,
@@ -878,6 +771,7 @@ def reject_user(
     return redirect(
         'pending_requests'
     )
+
 
 @login_required
 def delete_user(request, user_id):
@@ -894,6 +788,7 @@ def delete_user(request, user_id):
 
         'users'
     )
+
 
 @login_required
 def edit_product(
@@ -913,7 +808,6 @@ def edit_product(
 
         product.category = request.POST['category']
 
-
         if 'image' in request.FILES:
 
             product.image = request.FILES['image']
@@ -923,7 +817,6 @@ def edit_product(
         return redirect(
             'manage_products'
         )
-
 
     return render(
 
@@ -959,6 +852,7 @@ def delete_product(
         'manage_products'
     )
 
+
 @login_required
 def product_detail(request, id):
 
@@ -973,3 +867,91 @@ def product_detail(request, id):
             'product': product
         }
     )
+
+
+def team_page(request):
+
+    return render(
+
+        request,
+
+        'team.html'
+
+    )
+
+
+def reject_user(request, user_id):
+
+    profile = get_object_or_404(
+        UserProfile,
+        id=user_id
+    )
+
+    profile.user.delete()
+
+    return redirect('pending_requests')
+
+
+from django.db.models import Sum
+from .models import Order
+
+def sales_report(request):
+
+    orders = Order.objects.all()
+
+    total_orders = orders.count()
+
+    total_revenue = orders.aggregate(
+        Sum('total_price')
+    )['total_price__sum'] or 0
+
+    return render(
+        request,
+        'sales_report.html',
+        {
+            'orders': orders,
+            'total_orders': total_orders,
+            'total_revenue': total_revenue
+        }
+    )
+
+import csv
+
+from django.http import HttpResponse
+
+from .models import Order
+
+
+def download_report(request):
+
+    response = HttpResponse(
+        content_type='text/csv'
+    )
+
+    response[
+        'Content-Disposition'
+    ] = 'attachment; filename="sales_report.csv"'
+
+
+    writer = csv.writer(response)
+
+    writer.writerow([
+        'Order ID',
+        'Customer',
+        'Amount',
+        'Status'
+    ])
+
+
+    orders = Order.objects.all()
+
+    for order in orders:
+
+        writer.writerow([
+            order.id,
+            order.user.username,
+            order.total_price,
+            order.status
+        ])
+
+    return response

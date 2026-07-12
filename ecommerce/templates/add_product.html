@@ -1,55 +1,26 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta charset="UTF-8">
+    <title>Add Product</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/add_products.css' %}" />
+  </head>
 
-<title>
+  <body>
+    <div class="container">
+      <h1>Add Product</h1>
 
-Add Product
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {{ form.as_p }}
 
-</title>
-
-<link rel="stylesheet"
-href="{% static 'css/add_products.css' %}">
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>
-
-Add Product
-
-</h1>
-
-
-<form
-method="POST"
-enctype="multipart/form-data">
-
-{% csrf_token %}
-
-{{ form.as_p }}
-
-<button type="submit">
-
-Add Product
-
-</button>
-
-</form>
-
-</div>
-
-</body>
-
+        <button type="submit">Add Product</button>
+      </form>
+    </div>
+  </body>
 </html>

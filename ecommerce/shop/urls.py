@@ -150,6 +150,26 @@ urlpatterns = [
         'product/<int:id>/',
         views.product_detail,
         name='product_detail'
-    )
+    ),
+    path(
+        'team/',
+        views.team_page,
+        name='team'
+    ),
+    path(
+        'reject-user/<int:user_id>/',
+        views.reject_user,
+        name='reject_user'
+    ),
+    path(
+        'sales-report/',
+        views.sales_report,
+        name='sales_report'
+    ), path(
+        'download-report/',
+        views.download_report,
+        name='download_report'
+    ),
+
 
 ]
